@@ -13,7 +13,7 @@ param(
 )
 
 $CASAOS_IP = "192.168.1.25"
-$CASAOS_USER = "lavansa"  # Sesuaikan dengan user SSH CasaOS Anda
+$CASAOS_USER = "root"
 
 Write-Host "🔑 Generating $Tier license..." -ForegroundColor Cyan
 

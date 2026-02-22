@@ -32,7 +32,7 @@ Kalau belum ❌, ikuti **Setup Awal** di bawah.
 **Opsi B - Manual via SSH:**
 ```bash
 # SSH ke CasaOS
-ssh lavansa@192.168.1.25
+ssh root@192.168.1.25
 
 # Generate license
 docker exec kasir-license-server python admin_create_license.py standard
@@ -78,10 +78,10 @@ KASIR_LICENSE_KEY=ABCDE-FG123-HJK45-MNP67
 
 ```powershell
 # 1. Copy folder license_server ke CasaOS
-scp -r license_server lavansa@192.168.1.25:~/
+scp -r license_server root@192.168.1.25:~/
 
 # 2. SSH ke CasaOS
-ssh lavansa@192.168.1.25
+ssh root@192.168.1.25
 
 # 3. Deploy container
 cd ~/license_server
@@ -152,7 +152,7 @@ Dashboard menampilkan:
 ssh-keygen
 
 # Copy ke CasaOS
-ssh-copy-id lavansa@192.168.1.25
+ssh-copy-id root@192.168.1.25
 
 # Sekarang SSH tanpa password!
 ```
@@ -164,6 +164,6 @@ ssh-copy-id lavansa@192.168.1.25
 
 **Kalau mau lihat semua license yang sudah dibuat:**
 ```bash
-ssh lavansa@192.168.1.25
+ssh root@192.168.1.25
 docker exec kasir-license-server sqlite3 /data/license_server.sqlite "SELECT license_key, tier, issued_at, expires_at FROM licenses"
 ```
