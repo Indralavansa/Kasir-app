@@ -12,24 +12,62 @@ Folder yang siap Anda kirim ke customer sesuai OS:
 - `device_fingerprint.py`
 - `README.md`
 
-## Yang perlu Anda siapkan sebagai penjual
-Paket ini menjalankan aplikasi dari Docker image, jadi Anda harus menyediakan salah satu:
+## Cara Kirim ke Customer
 
-1) Registry image (disarankan)
-- Beri customer nilai `KASIR_IMAGE` (contoh GHCR: `ghcr.io/<owner>/<repo>:v1.0.0`)
-- Customer tinggal `docker pull ...` lalu run
+### 1. Docker Image (Sudah Otomatis) ✅
+Image sudah tersedia di GitHub Container Registry:
+```
+ghcr.io/indralavansa/kasir-app:v1.0.0
+```
 
-2) Offline image tar
-- Anda buat: `docker save -o kasir-image.tar <image:tag>`
-- Kirim file `kasir-image.tar` ke customer
-- Customer: `docker load -i kasir-image.tar`
-- Lalu isi `KASIR_IMAGE` sesuai nama image
+**Sudah diisi di semua `.env.example`** - Customer tinggal pakai!
 
-## License
-- Anda generate key di CasaOS:
-  - `python create_license_on_casaos.py standard|pro|unlimited`
-  - `python create_license_on_casaos.py trial --days 30`
-- Customer isi `KASIR_LICENSE_KEY` di `.env`
+**PENTING:** Pastikan package visibility GHCR sudah **Public**:
+- Buka: https://github.com/users/Indralavansa/packages/container/kasir-app/settings
+- Change visibility → **Public**
+- Kalau masih Private, customer tidak bisa pull image!
 
-## Monitoring
-Pastikan server lisensi Anda reachable dari customer (LAN/WAN) karena aktivasi + ping butuh akses ke `LICENSE_SERVER_URL`.
+### 2. Generate License untuk Customer
+Di CasaOS Anda (192.168.1.25), generate license:
+```bash
+# SSH ke CasaOS atau lewat container
+docker exec -it license-server python admin_create_license.py standard
+docker exec -it license-server python admin_create_license.py pro
+docker exec -it license-server python admin_create_license.py unlimited
+docker exec -it license-server python admin_create_license.py trial --days 30
+```
+
+### 3. Yang Perlu Dikirim ke Customer
+Kirim folder sesuai OS customer (`windows/` atau `linux/` atau `macos/`) plus info ini:
+
+**A) License Key** (dari step 2)
+```
+KASIR_LICENSE_KEY=<hasil generate>
+```
+
+**B) Public Key Server** (agar customer bisa verifikasi license):
+```
+LICENSE_SERVER_PUBLIC_KEY_B64=FubZG4q/E7a8W9V1Ys6bYoZKPQYv7iYPq6S1Ay8phII=
+```
+
+**C) License Server URL** (sudah diisi default):
+```
+LICENSE_SERVER_URL=http://192.168.1.25:8088
+```
+
+Customer tinggal:
+1. Edit `.env.example` → isi 3 nilai di atas
+2. Rename jadi `.env`
+3. Jalankan `run.ps1` (Windows) atau `run.sh` (Linux) atau `run.command` (macOS)
+4. Buka browser → `http://localhost:8080`
+
+### 4. Monitoring Customer
+Pantau penggunaan customer di: http://192.168.1.25:8088/admin
+- Username: `admin`
+- Password: `Lavansastore`
+
+Dashboard akan menampilkan:
+- Total lisensi aktif
+- Device yang online (24 jam / 7 hari terakhir)
+- Breakdown per tier (Trial/Standard/Pro/Unlimited)
+- Aktivitas terakhir (IP, versi app, last seen)
