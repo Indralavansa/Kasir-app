@@ -235,6 +235,46 @@ def _admin_logged_in() -> bool:
     return bool(session.get("admin_ok"))
 
 
+def _gen_license_key() -> str:
+    """Generate human-friendly license key: XXXXX-XXXXX-XXXXX-XXXXX"""
+    alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+    parts = []
+    for _ in range(4):
+        parts.append("".join(secrets.choice(alphabet) for _ in range(5)))
+    return "-".join(parts)
+
+
+def _create_license(tier: str, days: int | None = None, max_devices: int = 1) -> str:
+    """Create a new license in database and return the key"""
+    tier = (tier or "").strip().lower()
+    if tier not in ("trial", "standard", "pro", "unlimited"):
+        raise ValueError("tier must be: trial|standard|pro|unlimited")
+
+    telegram_allowed = 1 if tier in ("pro", "unlimited") else 0
+    updates_allowed = 1 if tier == "unlimited" else 0
+
+    issued_at = _utc_now().isoformat()
+    expires_at = None
+    if tier == "trial":
+        d = days or 30
+        expires_at = (_utc_now() + timedelta(days=int(d))).isoformat()
+
+    key = _gen_license_key()
+
+    con = _db()
+    cur = con.cursor()
+    cur.execute(
+        """
+        INSERT INTO licenses(license_key, tier, telegram_allowed, updates_allowed, issued_at, expires_at, max_devices)
+        VALUES(?,?,?,?,?,?,?)
+        """,
+        (key, tier, telegram_allowed, updates_allowed, issued_at, expires_at, int(max_devices)),
+    )
+    con.commit()
+    con.close()
+    return key
+
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin_login():
     if _admin_logged_in():
@@ -259,6 +299,35 @@ def admin_login():
 def admin_logout():
     session.clear()
     return redirect("/admin")
+
+
+@app.route("/admin/create-license", methods=["GET", "POST"])
+def admin_create_license():
+    if not _admin_logged_in():
+        return redirect("/admin")
+
+    init_db()
+    
+    license_key = None
+    error = None
+    
+    if request.method == "POST":
+        try:
+            tier = request.form.get("tier", "").strip().lower()
+            days = request.form.get("days", "30").strip()
+            max_devices = request.form.get("max_devices", "1").strip()
+            
+            if not tier or tier not in ("trial", "standard", "pro", "unlimited"):
+                error = "Pilih tier yang valid"
+            else:
+                days_int = int(days) if tier == "trial" and days else None
+                max_devices_int = int(max_devices) if max_devices else 1
+                
+                license_key = _create_license(tier, days=days_int, max_devices=max_devices_int)
+        except Exception as e:
+            error = str(e)
+    
+    return render_template("admin/create_license.html", license_key=license_key, error=error)
 
 
 @app.get("/admin/dashboard")

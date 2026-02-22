@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create License - License Server</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.10), transparent 60%),
+                  radial-gradient(1200px circle at 90% 20%, rgba(220,53,69,.08), transparent 55%),
+                  #f8f9fa;
+    }
+    .card { border-radius: 18px; border: 0; background: rgba(255,255,255,.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .btn { border-radius: 12px; padding: .6rem 1.2rem; font-weight: 600; }
+    .form-control, .form-select { border-radius: 12px; border-color: rgba(0,0,0,.12); }
+    .form-control:focus, .form-select:focus { border-color: #0d6efd; box-shadow: 0 0 0 .25rem rgba(13,110,253,.12); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .hero-icon { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #0d6efd, #0b5ed7); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 1rem; }
+    .success-box { border-radius: 16px; background: rgba(25,135,84,.08); border: 2px solid rgba(25,135,84,.20); padding: 1.5rem; }
+    .license-key { font-size: 1.4rem; font-weight: 700; color: #198754; letter-spacing: 1px; }
+    .info-item { background: rgba(13,110,253,.05); border-radius: 12px; padding: 1rem; border-left: 3px solid #0d6efd; }
+  </style>
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="/admin/dashboard" class="navbar-brand d-flex align-items-center gap-2 text-decoration-none">
+        <span style="font-size: 18px;">🛡️</span>
+        <span>License Monitor</span>
+      </a>
+      <div class="ms-auto">
+        <a class="btn btn-sm btn-outline-light" href="/admin/dashboard">Dashboard</a>
+        <a class="btn btn-sm btn-outline-light ms-2" href="/admin/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        
+        {% if license_key %}
+        <!-- Success: License Created -->
+        <div class="card shadow-lg mb-4">
+          <div class="card-body p-4 text-center">
+            <div class="hero-icon mx-auto">✅</div>
+            <h4 class="mb-3">License Berhasil Dibuat!</h4>
+            
+            <div class="success-box mb-4">
+              <p class="text-muted mb-2 small fw-semibold">LICENSE KEY</p>
+              <div class="license-key mono">{{ license_key }}</div>
+              <button class="btn btn-sm btn-success mt-3" onclick="copyLicense()">
+                📋 Copy License Key
+              </button>
+            </div>
+
+            <div class="text-start">
+              <p class="fw-semibold mb-2">📦 Info untuk Customer:</p>
+              <div class="info-item mb-2">
+                <small class="text-muted d-block mb-1">License Key:</small>
+                <code class="small">{{ license_key }}</code>
+              </div>
+              <div class="info-item mb-2">
+                <small class="text-muted d-block mb-1">Public Key:</small>
+                <code class="small" style="word-break: break-all;">gjpHQCTYN3L7OajRKJ5vZKFrXTUdXP43Yyyv//Iqvd4=</code>
+              </div>
+              <div class="info-item mb-2">
+                <small class="text-muted d-block mb-1">Server URL:</small>
+                <code class="small">http://192.168.1.25:8088</code>
+              </div>
+              <div class="info-item">
+                <small class="text-muted d-block mb-1">Image:</small>
+                <code class="small">ghcr.io/indralavansa/kasir-app:v1.0.0</code>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+              <a href="/admin/create-license" class="btn btn-primary">Buat License Lagi</a>
+              <a href="/admin/dashboard" class="btn btn-outline-secondary">Kembali ke Dashboard</a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <!-- Form: Create License -->
+        <div class="card shadow-lg">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <div class="hero-icon mx-auto">🔑</div>
+              <h4 class="mb-2">Buat License Baru</h4>
+              <p class="text-muted small">Generate license untuk customer</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              ❌ {{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <form method="POST">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Tier License</label>
+                <select name="tier" class="form-select form-select-lg" required id="tierSelect" onchange="toggleDaysInput()">
+                  <option value="">-- Pilih Tier --</option>
+                  <option value="trial">🎯 Trial (30 hari gratis)</option>
+                  <option value="standard">⭐ Standard (Dasar)</option>
+                  <option value="pro">🚀 Pro (+ Telegram Bot)</option>
+                  <option value="unlimited">💎 Unlimited (+ Auto Updates)</option>
+                </select>
+              </div>
+
+              <div class="mb-3" id="daysInput" style="display: none;">
+                <label class="form-label fw-semibold">Durasi Trial (hari)</label>
+                <input type="number" name="days" class="form-control form-control-lg" value="30" min="1" max="365">
+                <small class="text-muted">Default: 30 hari</small>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Max Devices</label>
+                <input type="number" name="max_devices" class="form-control form-control-lg" value="1" min="1" max="100">
+                <small class="text-muted">Jumlah device yang bisa aktivasi dengan license ini</small>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  ✨ Generate License
+                </button>
+                <a href="/admin/dashboard" class="btn btn-outline-secondary">
+                  ← Kembali ke Dashboard
+                </a>
+              </div>
+            </form>
+
+            <hr class="my-4">
+            
+            <div class="small text-muted">
+              <p class="mb-2 fw-semibold">ℹ️ Tier Info:</p>
+              <ul class="mb-0" style="line-height: 1.8;">
+                <li><strong>Trial:</strong> Semua fitur, terbatas waktu</li>
+                <li><strong>Standard:</strong> Fitur dasar kasir (tanpa Telegram)</li>
+                <li><strong>Pro:</strong> Standard + notifikasi Telegram</li>
+                <li><strong>Unlimited:</strong> Pro + auto updates selamanya</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleDaysInput() {
+      const tierSelect = document.getElementById('tierSelect');
+      const daysInput = document.getElementById('daysInput');
+      if (tierSelect.value === 'trial') {
+        daysInput.style.display = 'block';
+      } else {
+        daysInput.style.display = 'none';
+      }
+    }
+
+    function copyLicense() {
+      const licenseKey = '{{ license_key }}';
+      navigator.clipboard.writeText(licenseKey).then(() => {
+        const btn = event.target;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✅ Copied!';
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-secondary');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('btn-secondary');
+          btn.classList.add('btn-success');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
