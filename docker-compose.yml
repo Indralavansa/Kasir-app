@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  kasir-app:
+    image: kasir-toko-sembako:latest
+    build: .
+    container_name: kasir-toko-sembako
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    volumes:
+      # Persistent data
+      - ./instance:/app/instance
+      - ./backups:/app/backups
+      - ./data:/app/data
+      - ./img:/app/img
+    environment:
+      # Application settings
+      - FLASK_APP=app.app_simple:app
+      - SECRET_KEY=${SECRET_KEY:-rahasia-sangat-rahasia-123456}
+      
+      # Telegram Bot (optional)
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_ADMIN_CHAT_IDS=${TELEGRAM_ADMIN_CHAT_IDS:-}
+      - TELEGRAM_NOTIFY_NEW_TRANSACTION=${TELEGRAM_NOTIFY_NEW_TRANSACTION:-false}
+      - TELEGRAM_NOTIFY_LOW_STOCK_THRESHOLD=${TELEGRAM_NOTIFY_LOW_STOCK_THRESHOLD:-10}
+      
+      # Python settings
+      - PYTHONUNBUFFERED=1
+    networks:
+      - kasir-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:5000/', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  kasir-network:
+    driver: bridge
+
+# Untuk CasaOS: Import file ini melalui CasaOS App Store (Custom Import)
+# atau gunakan Docker Compose melalui terminal CasaOS

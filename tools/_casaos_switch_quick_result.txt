@@ -1,0 +1,49 @@
+timestamp: 2026-02-19T22:45:55
+
+target: root@192.168.1.25:22
+
+remote_root: /DATA/lost+found/kasir-app
+
+
+## stop_port_5000 (exit=0)
+bash -lc "export TERM=dumb; ids=$(docker ps --filter publish=5000 -q); echo ids:$ids; if [ -n \"$ids\" ]; then docker stop $ids; docker rm $ids; fi"
+
+ids:
+
+
+
+## compose_down (exit=0)
+bash -lc "export TERM=dumb; cd /DATA/lost+found/kasir-app 2>/dev/null && (docker compose down --remove-orphans 2>/dev/null || docker-compose down --remove-orphans 2>/dev/null) || true"
+
+
+
+## compose_up_quick (exit=0)
+bash -lc "export TERM=dumb; cd /DATA/lost+found/kasir-app && (docker compose up -d || docker-compose up -d)"
+
+ERR:
+time="2026-02-19T23:46:00+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network kasir-app_kasir-network Creating 
+ Network kasir-app_kasir-network Created 
+ Container kasir-toko-sembako Creating 
+ Container kasir-toko-sembako Created 
+ Container kasir-toko-sembako Starting 
+ Container kasir-toko-sembako Started
+
+
+
+## verify_port_5000 (exit=0)
+bash -lc "export TERM=dumb; docker ps --filter publish=5000 --format '{{.Names}}|{{.Status}}|{{.Ports}}' || true"
+
+kasir-toko-sembako|Up Less than a second (health: starting)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+
+## compose_ps (exit=0)
+bash -lc "export TERM=dumb; cd /DATA/lost+found/kasir-app && (docker compose ps 2>/dev/null || docker-compose ps 2>/dev/null) || true"
+
+NAME                 IMAGE                       COMMAND                  SERVICE     CREATED         STATUS                           PORTS
+kasir-toko-sembako   kasir-toko-sembako:latest   "python -m flask run…"   kasir-app   2 seconds ago   Up 1 second (health: starting)   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+
+result: ok

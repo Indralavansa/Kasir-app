@@ -1,0 +1,141 @@
+timestamp: 2026-02-20T00:12:36
+host: 192.168.1.25
+kasir_root: /DATA/lost+found/kasir-app
+chat_root: /DATA/lost+found/connect-ai-chat
+
+## docker_root (exit=0)
+/DATA/docker
+
+## kasir_up (exit=0)
+__EXIT:0
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.1s done
+#5 DONE 0.1s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#4 [internal] load build context
+#4 transferring context: 5.95kB 0.2s done
+#4 DONE 0.4s
+
+#7 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#7 1.474 Ign:1 http://deb.debian.org/debian trixie InRelease
+#7 1.476 Ign:2 http://deb.debian.org/debian trixie-updates InRelease
+#7 1.479 Ign:3 http://deb.debian.org/debian-security trixie-security InRelease
+#7 2.483 Ign:3 http://deb.debian.org/debian-security trixie-security InRelease
+#7 2.485 Ign:2 http://deb.debian.org/debian trixie-updates InRelease
+#7 2.487 Ign:1 http://deb.debian.org/debian trixie InRelease
+#7 4.490 Ign:1 http://deb.debian.org/debian trixie InRelease
+#7 4.493 Ign:2 http://deb.debian.org/debian trixie-updates InRelease
+#7 4.495 Ign:3 http://deb.debian.org/debian-security trixie-security InRelease
+#7 8.501 Err:3 http://deb.debian.org/debian-security trixie-security InRelease
+#7 8.501   Temporary failure resolving 'deb.debian.org'
+#7 8.506 Err:2 http://deb.debian.org/debian trixie-updates InRelease
+#7 8.506   Temporary failure resolving 'deb.debian.org'
+#7 8.510 Err:1 http://deb.debian.org/debian trixie InRelease
+#7 8.510   Temporary failure resolving 'deb.debian.org'
+#7 8.524 Reading package lists...
+#7 8.585 W: Failed to fetch http://deb.debian.org/debian/dists/trixie/InRelease  Temporary failure resolving 'deb.debian.org'
+#7 8.585 W: Failed to fetch http://deb.debian.org/debian/dists/trixie-updates/InRelease  Temporary failure resolving 'deb.debian.org'
+#7 8.585 W: Failed to fetch http://deb.debian.org/debian-security/dists/trixie-security/InRelease  Temporary failure resolving 'deb.debian.org'
+#7 8.585 W: Some index files failed to download. They have been ignored, or old ones used instead.
+#7 8.634 Reading package lists...
+#7 8.679 Building dependency tree...
+#7 8.685 Reading state information...
+#7 8.693 E: Unable to locate package gcc
+#7 ERROR: process "/bin/sh -c apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+------
+ > [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*:
+2.487 Ign:1 http://deb.debian.org/debian trixie InRelease
+4.490 Ign:1 http://deb.debian.org/debian trixie InRelease
+4.493 Ign:2 http://deb.debian.org/debian trixie-updates InRelease
+4.495 Ign:3 http://deb.debian.org/debian-security trixie-security InRelease
+8.501 Err:3 http://deb.debian.org/debian-security trixie-security InRelease
+8.501   Temporary failure resolving 'deb.debian.org'
+
+8.679 Building dependency tree...
+8.685 Reading state information...
+8.693 E: Unable to locate package gcc
+------
+Dockerfile:10
+--------------------
+   9 |     # Install system dependencies
+  10 | >>> RUN apt-get update && apt-get install -y --no-install-recommends \
+  11 | >>>     gcc \
+  12 | >>>     && rm -rf /var/lib/apt/lists/*
+  13 |     
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+Service 'kasir-app' failed to build : Build failed
+
+## chat_up (exit=0)
+__EXIT:0
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.216GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.217GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.218GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.219GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]   2.22GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.221GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.221GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.222GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.223GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.224GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.225GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.225GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.226GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.227GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]  2.228GB/3.015GB
+ 5d35e7ef10d8 Downloading [====================================>              ]   2.23GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.233GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.235GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.236GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.237GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.238GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.239GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.239GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]   2.24GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.241GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.242GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.243GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.244GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.244GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.245GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.245GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.246GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.247GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.248GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.249GB/3.015GB
+ 5d35e7ef10d8 Downloading [=====================================>             ]  2.249GB/3.015GB
+failed to copy: failed to send write: write /var/lib/containerd/io.containerd.content.v1.content/ingest/832f11430a917046d8109657e61b4a4bb9fe3ae44fe77d2edee0cfb10ca0eda9/data: no space left on device
+Creating network "connect-ai-chat_default" with the default driver
+Creating volume "connect-ai-chat_ollama" with default driver
+Pulling ollama (ollama/ollama:latest)...
+latest: Pulling from ollama/ollama
+failed to copy: read tcp [2001:448a:5050:7364:dfe2:e0fe:bdf2:41b3]:19368->[2606:4700::6810:64d7]:443: read: connection reset by peer
+
+## ollama_pull (exit=0)
+__EXIT:0
+Error response from daemon: No such container: connect-ai-chat-ollama
+
+## ports (exit=0)
+
+## ps (exit=0)

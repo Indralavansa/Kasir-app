@@ -1,0 +1,7 @@
+timestamp: 2026-02-19T22:46:35
+
+cmd: bash -lc "export TERM=dumb; docker exec kasir-toko-sembako python -c \"import sqlite3; conn=sqlite3.connect('instance/kasir.db'); print(conn.execute('SELECT COUNT(*) FROM produk').fetchone()[0]); conn.close()\""
+
+exit: 0
+
+output: 477

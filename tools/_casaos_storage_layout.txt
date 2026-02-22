@@ -1,0 +1,61 @@
+﻿timestamp: 2026-02-20T02:11:19
+
+## df (exit=0)
+Filesystem                                                    Type           Size  Used Avail Use% Mounted on
+udev                                                          devtmpfs       775M     0  775M   0% /dev
+tmpfs                                                         tmpfs          182M   21M  161M  12% /run
+/dev/mmcblk2p2                                                ext4           6.5G  3.9G  2.7G  59% /
+tmpfs                                                         tmpfs          907M     0  907M   0% /dev/shm
+tmpfs                                                         tmpfs          5.0M  8.0K  5.0M   1% /run/lock
+tmpfs                                                         tmpfs          907M  2.8M  904M   1% /tmp
+/dev/mmcblk2p1                                                vfat           510M   89M  422M  18% /boot
+/dev/zram1                                                    ext4            47M  2.9M   41M   7% /var/log
+/dev/sda1                                                     ext4           687G  9.8G  670G   2% /media/devmon/sda1-ata-HGST_HTS541075A9
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9 fuse.mergerfs  694G   14G  673G   2% /DATA
+tmpfs                                                         tmpfs          182M     0  182M   0% /run/user/0
+overlay                                                       overlay        687G  9.8G  670G   2% /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/3d557febc7b8924cd86662b9f78c81e3d9e5288fb05fb101a35083e652957ba4
+overlay                                                       overlay        687G  9.8G  670G   2% /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/a2001b75cf5d674933e3cb56c9b5ed033a1e615fb7f96af7c2182de3ab4e3b84
+overlay                                                       overlay        687G  9.8G  670G   2% /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/8a56f5b75dd0ca047bef41d7a41925df25ef188b1cf4b878477fb1682d179951
+
+## mount_data (exit=0)
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9 on /DATA type fuse.mergerfs (rw,relatime,user_id=0,group_id=0,default_permissions,allow_other)
+overlay on /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/3d557febc7b8924cd86662b9f78c81e3d9e5288fb05fb101a35083e652957ba4 type overlay (rw,relatime,lowerdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/58/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/17/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/16/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/15/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/14/fs,upperdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/59/fs,workdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/59/work)
+overlay on /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/a2001b75cf5d674933e3cb56c9b5ed033a1e615fb7f96af7c2182de3ab4e3b84 type overlay (rw,relatime,lowerdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/80/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/79/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/78/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/38/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/37/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/36/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/35/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/7/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/6/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/5/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/4/fs,upperdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/81/fs,workdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/81/work)
+overlay on /media/devmon/sda1-ata-HGST_HTS541075A9/docker/rootfs/overlayfs/8a56f5b75dd0ca047bef41d7a41925df25ef188b1cf4b878477fb1682d179951 type overlay (rw,relatime,lowerdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/85/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/84/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/50/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/49/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/35/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/7/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/6/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/5/fs:/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/4/fs,upperdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/86/fs,workdir=/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/86/work)
+
+## docker_info (exit=0)
+Storage Driver: overlayfs
+ Docker Root Dir: /media/devmon/sda1-ata-HGST_HTS541075A9/docker
+
+## ls_paths (exit=0)
+drwxr-xr-x 7 root root 4096 Feb 11 19:50 /DATA
+drwxr-xr-x 8 root root 4096 Feb 18 21:17 /var/lib/casaos
+lrwxrwxrwx 1 root root   50 Feb 20 01:49 /var/lib/containerd -> /media/devmon/sda1-ata-HGST_HTS541075A9/containerd
+
+## du_rootfs_hotspots (exit=0)
+0	/var/lib/containerd
+74M	/var/lib/casaos
+
+## du_data_hotspots (exit=0)
+27M	/DATA/AppData
+6.3G	/DATA/docker
+9.4G	/DATA/containerd
+
+## casaos_paths (exit=0)
+1
+apps
+appstore
+baseinfo.conf
+db
+files
+manifest
+ui-message-bus.json
+www
+/var/lib/casaos/ui-message-bus.json
+/var/lib/casaos/db/local-storage.json
+/var/lib/casaos/1/link.json
+/var/lib/casaos/1/app_order.json
+/var/lib/casaos/1/shortcut.json
+/var/lib/casaos/1/widgets_config.json
+/var/lib/casaos/1/system.json
+/var/lib/casaos/1/notFirstOpenMergerStorage.json

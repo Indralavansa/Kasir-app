@@ -1,0 +1,76 @@
+﻿timestamp: 2026-02-20T02:04:55
+kasir_root: /DATA/lost+found/kasir-app
+
+## ps_kasir (exit=0)
+kasir-toko-sembako|Up 9 minutes (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+## crontab_root (exit=0)
+(no root crontab)
+
+## cron_d (exit=0)
+armbian-check-battery
+armbian-truncate-logs
+armbian-updates
+e2scrub_all
+
+## cron_grep_kasir (exit=0)
+
+## host_backups_ls (exit=0)
+total 1000K
+drwxr-xr-x  2 root root 4.0K 2026-02-20 02:07 .
+drwxr-xr-x 13 root root 4.0K 2026-02-20 02:54 ..
+-rw-r--r--  1 root root  92K 2026-02-19 22:28 kasir_backup_20260208_230613.db
+-rw-r--r--  1 root root  92K 2026-02-19 22:28 kasir_backup_20260208_233449.db
+-rw-r--r--  1 root root  92K 2026-02-19 22:28 kasir_backup_20260208_233943.db
+-rw-r--r--  1 root root  92K 2026-02-19 22:28 kasir_backup_20260209_195754.db
+-rw-r--r--  1 root root 100K 2026-02-19 22:28 kasir_backup_20260209_202720.db
+-rw-r--r--  1 root root 100K 2026-02-19 22:28 kasir_backup_20260209_203009.db
+-rw-r--r--  1 root root 100K 2026-02-19 22:28 kasir_backup_20260211_144700.db
+-rw-r--r--  1 root root 100K 2026-02-19 22:28 kasir_backup_20260211_145730.db
+-rw-r--r--  1 root root 100K 2026-02-19 22:28 kasir_backup_20260211_202403.db
+-rw-r--r--  1 root root 124K 2026-02-20 02:07 kasir_backup_20260219_180759.db
+
+## host_data_ls (exit=0)
+total 144K
+drwxr-xr-x  2 root root 4.0K 2026-02-19 22:28 .
+drwxr-xr-x 13 root root 4.0K 2026-02-20 02:54 ..
+-rw-r--r--  1 root root  30K 2026-02-19 22:28 backup_produk_20260208_233943.csv
+-rw-r--r--  1 root root  91K 2026-02-19 22:28 backup_produk_20260208_233943.json
+-rw-r--r--  1 root root 1.6K 2026-02-19 22:28 backup_transaksi_20260208_233943.csv
+-rw-r--r--  1 root root 4.1K 2026-02-19 22:28 backup_transaksi_20260208_233943.json
+
+## container_backups_ls (exit=0)
+total 1004K
+drwxr-xr-x 2 root root 4.0K 2026-02-19 18:07 .
+drwxr-xr-x 1 root root 4.0K 2026-02-19 18:55 ..
+-rw-r--r-- 1 root root  92K 2026-02-19 14:28 kasir_backup_20260208_230613.db
+-rw-r--r-- 1 root root  92K 2026-02-19 14:28 kasir_backup_20260208_233449.db
+-rw-r--r-- 1 root root  92K 2026-02-19 14:28 kasir_backup_20260208_233943.db
+-rw-r--r-- 1 root root  92K 2026-02-19 14:28 kasir_backup_20260209_195754.db
+-rw-r--r-- 1 root root 100K 2026-02-19 14:28 kasir_backup_20260209_202720.db
+-rw-r--r-- 1 root root 100K 2026-02-19 14:28 kasir_backup_20260209_203009.db
+-rw-r--r-- 1 root root 100K 2026-02-19 14:28 kasir_backup_20260211_144700.db
+-rw-r--r-- 1 root root 100K 2026-02-19 14:28 kasir_backup_20260211_145730.db
+-rw-r--r-- 1 root root 100K 2026-02-19 14:28 kasir_backup_20260211_202403.db
+-rw-r--r-- 1 root root 124K 2026-02-19 18:07 kasir_backup_20260219_180759.db
+
+## container_data_ls (exit=0)
+total 148K
+drwxr-xr-x 2 root root 4.0K 2026-02-19 14:28 .
+drwxr-xr-x 1 root root 4.0K 2026-02-19 18:55 ..
+-rw-r--r-- 1 root root  30K 2026-02-19 14:28 backup_produk_20260208_233943.csv
+-rw-r--r-- 1 root root  91K 2026-02-19 14:28 backup_produk_20260208_233943.json
+-rw-r--r-- 1 root root 1.6K 2026-02-19 14:28 backup_transaksi_20260208_233943.csv
+-rw-r--r-- 1 root root 4.1K 2026-02-19 14:28 backup_transaksi_20260208_233943.json
+
+## search_backup_script (exit=0)
+total 68K
+drwxr-xr-x 2 root root 4.0K Feb 19 14:28 .
+drwxr-xr-x 1 root root 4.0K Feb 19 18:55 ..
+-rw-r--r-- 1 root root  19K Feb 19 14:28 backup_otomatis_standalone.py
+-rw-r--r-- 1 root root  455 Feb 19 14:28 check_imports.py
+-rw-r--r-- 1 root root 1.3K Feb 19 14:28 create_test_user.py
+-rw-r--r-- 1 root root 6.7K Feb 19 14:28 import_mdb_final.py
+-rw-r--r-- 1 root root 7.4K Feb 19 14:28 import_sql_final.py
+-rw-r--r-- 1 root root 1.2K Feb 19 14:28 reset_transaksi.py
+-rw-r--r-- 1 root root 4.8K Feb 19 14:28 update_harga_beli.py

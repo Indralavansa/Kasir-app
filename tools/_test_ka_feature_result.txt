@@ -1,0 +1,53 @@
+﻿timestamp: 2026-02-20T12:46:45
+
+## curl_kas (exit=0)
+HTTP/1.1 302 FOUND
+
+Server: Werkzeug/3.0.4 Python/3.11.14
+
+Date: Fri, 20 Feb 2026 05:46:48 GMT
+
+Content-Type: text/html; charset=utf-8
+
+Content-Length: 199
+
+Location: /login
+
+Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://code.jquery.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https://*; connect-src 'self' https://*; object-src 'none'; base-uri 'self'; form-action 'self'
+
+Strict-Transport-Security: max-age=0
+
+Cache-Control: no-cache, no-store, must-revalidate
+
+Pragma: no-cache
+
+Expires: 0
+
+Vary: Cookie
+
+Connection: close
+
+
+
+<!doctype html>
+<html lang=en>
+<title>Redirecting...</title>
+<h1>Redirecting...</h1>
+<p>You should be redirected automatically to the target URL: <a href="/login">/login</a>. If not, click the link.
+
+## tables (exit=2)
+ERR:
+bash: -c: line 1: syntax error near unexpected token `('
+bash: -c: line 1: `bash -lc "docker exec kasir-toko-sembako python -c """import sqlite3; con=sqlite3.connect('/app/instance/kasir.db'); cur=con.cursor(); cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'kas%';"); print(cur.fetchall());""""'
+
+## saldo (exit=1)
+============================================================
+KASIR TOKO SEMBAKO - WITH SIMPLE BACKUP SYSTEM
+============================================================
+[TIME] Local System Time: 2026-02-20 05:46:57
+[TIME] Detected Timezone: UTC+0
+============================================================
+ERR:
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+NameError: name 'saldo' is not defined

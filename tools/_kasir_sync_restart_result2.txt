@@ -1,0 +1,50 @@
+timestamp: 2026-02-20T12:42:33
+host: 192.168.1.25
+remote_root: /DATA/lost+found/kasir-app
+local_root: d:/connect casa os/Connect to Telegram Fitur Komplit - Copy
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app/app_simple.py
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/app/telegram_bot.py
+SYNC_OK: base.html -> /DATA/lost+found/kasir-app/app/templates/base.html
+SYNC_OK: index.html -> /DATA/lost+found/kasir-app/app/templates/kas/index.html
+SYNC_OK: requirements.txt -> /DATA/lost+found/kasir-app/requirements.txt
+SYNC_OK: docker-compose.yml -> /DATA/lost+found/kasir-app/docker-compose.yml
+SYNC_OK: .env -> /DATA/lost+found/kasir-app/.env
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/telegram_bot.py
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app_simple.py
+
+## compose_down (exit=0)
+ERR:
+time="2026-02-20T13:42:39+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+
+## compose_up (exit=0)
+__EXIT:0
+time="2026-02-20T13:42:40+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image kasir-toko-sembako:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 526B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 2B 0.0s done
+#2 DONE 0.2s
+failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+
+Creating network "kasir-app_kasir-network" with driver "bridge"
+Building kasir-app
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 2B 0.0s done
+#1 DONE 0.2s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+Service 'kasir-app' failed to build : Build failed
+
+## env_check (exit=1)
+ERR:
+Error response from daemon: No such container: kasir-toko-sembako
+
+## ps (exit=0)
+
+result: ok

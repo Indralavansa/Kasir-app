@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Pengaturan{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4><i class="fas fa-cog me-2"></i>Pengaturan Toko</h4>
+        <p class="text-muted mb-0">Kelola konfigurasi toko dan sistem</p>
+    </div>
+</div>
+
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    
+    <!-- Informasi Toko -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-store me-2"></i>Informasi Toko</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nama Toko</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-store"></i></span>
+                        <input type="text" name="store_name" class="form-control" value="{{ settings.store_name }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">No. Telepon</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input type="text" name="store_phone" class="form-control" value="{{ settings.store_phone }}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Alamat Toko</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <textarea name="store_address" class="form-control" rows="2" required>{{ settings.store_address }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pengaturan Nota -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="fas fa-receipt me-2"></i>Pengaturan Nota/Struk</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">Teks Footer Nota</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                    <textarea name="receipt_footer" class="form-control" rows="2" placeholder="Terima kasih atas kunjungan Anda">{{ settings.receipt_footer }}</textarea>
+                </div>
+                <small class="text-muted">Teks yang akan ditampilkan di bagian bawah struk</small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pengaturan Pajak -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="fas fa-percentage me-2"></i>Pengaturan Pajak</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="tax_enabled" id="taxEnabled" value="true" {% if settings.tax_enabled == 'true' %}checked{% endif %}>
+                        <label class="form-check-label" for="taxEnabled">
+                            Aktifkan Pajak
+                        </label>
+                    </div>
+                    <small class="text-muted">Tambahkan pajak otomatis ke setiap transaksi</small>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Persentase Pajak (%)</label>
+                    <div class="input-group">
+                        <input type="number" name="tax_percentage" class="form-control" value="{{ settings.tax_percentage }}" min="0" max="100" step="0.1">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
+                </a>
+                <div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Simpan Pengaturan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Info & Backup -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-database me-2"></i>Backup Database</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Backup otomatis dibuat setelah setiap transaksi. Anda juga bisa membuat backup manual.</p>
+                <a href="{{ url_for('backup_now') }}" class="btn btn-info">
+                    <i class="fas fa-download me-2"></i>Backup Sekarang
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informasi Sistem</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Versi:</strong></td>
+                        <td>1.0.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database:</strong></td>
+                        <td>SQLite</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Framework:</strong></td>
+                        <td>Flask 3.0.3</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

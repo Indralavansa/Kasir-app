@@ -1,0 +1,111 @@
+timestamp: 2026-02-19T23:20:10
+host: 192.168.1.25
+remote_root: /DATA/lost+found/kasir-app
+local_root: d:/connect casa os/Connect to Telegram Fitur Komplit - Copy
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app/app_simple.py
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/app/telegram_bot.py
+SYNC_OK: requirements.txt -> /DATA/lost+found/kasir-app/requirements.txt
+SYNC_OK: docker-compose.yml -> /DATA/lost+found/kasir-app/docker-compose.yml
+SYNC_OK: .env -> /DATA/lost+found/kasir-app/.env
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/telegram_bot.py
+
+## compose_down (exit=0)
+ERR:
+time="2026-02-20T00:20:13+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container kasir-toko-sembako Stopping 
+ Container kasir-toko-sembako Stopped 
+ Container kasir-toko-sembako Removing 
+ Container kasir-toko-sembako Removed 
+ Network kasir-app_kasir-network Removing 
+ Network kasir-app_kasir-network Removed
+
+## compose_up (exit=0)
+__EXIT:0
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 11.2s done
+#13 exporting manifest sha256:5caa2434894f012d2a4c5eda46a1b76b8df128a4aa81d2a5c4553fbb408afa1b 0.0s done
+#13 exporting config sha256:a2378424a4717a395c23abfe4abb946d323d545e217023e71d6b53b3a9b53abf 0.0s done
+#13 exporting attestation manifest sha256:7142af04243c3447229d6329d1456314e626b117ef08a2ae5279752cfe6107a0
+#13 exporting attestation manifest sha256:7142af04243c3447229d6329d1456314e626b117ef08a2ae5279752cfe6107a0 0.1s done
+#13 exporting manifest list sha256:6fd7bae32d788cd8ce17d299e05f1c0288c4525539231a8f645021efa542d096 0.0s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 0.1s done
+#13 ERROR: failed to extract layer sha256:2d3d970f99d98a72de3c72499ef9b53fc989bea405933fec69e24be65aa694d0: write /var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/229/fs/usr/local/lib/python3.11/__pycache__/argparse.cpython-311.pyc: no space left on device
+------
+ > exporting to image:
+------
+failed to solve: failed to extract layer sha256:2d3d970f99d98a72de3c72499ef9b53fc989bea405933fec69e24be65aa694d0: write /var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/229/fs/usr/local/lib/python3.11/__pycache__/argparse.cpython-311.pyc: no space left on device
+
+Creating network "kasir-app_kasir-network" with driver "bridge"
+Building kasir-app
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.03kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.1s done
+#5 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 5.95kB 0.1s done
+#4 DONE 0.1s
+
+#6 [4/7] COPY requirements.txt .
+#6 CACHED
+
+#7 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [6/7] COPY . .
+#8 CACHED
+
+#9 [2/7] WORKDIR /app
+#9 CACHED
+
+#10 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers 0.0s done
+#12 exporting manifest sha256:35149ef3c0f27f8c1abbe89604c8cf3c9e508f9c99b242460de15062622f86eb 0.1s done
+#12 exporting config sha256:56d9ac3fc5d19231650abbd0ddf3d994fb96af00208253c246981d2547e730dd
+#12 exporting config sha256:56d9ac3fc5d19231650abbd0ddf3d994fb96af00208253c246981d2547e730dd 0.1s done
+#12 exporting attestation manifest sha256:c0a876593578baa65f4fc5ca915eed590042147e3ab858a4e5a25d82d8ca1036
+#12 exporting attestation manifest sha256:c0a876593578baa65f4fc5ca915eed590042147e3ab858a4e5a25d82d8ca1036 0.1s done
+#12 exporting manifest list sha256:d46767b25ae193de1019dbf003858edff0aacf7bd047d7ad194615d4c8fc288d 0.0s done
+#12 naming to docker.io/library/kasir-toko-sembako:latest
+#12 naming to docker.io/library/kasir-toko-sembako:latest done
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest 2.5s done
+#12 ERROR: failed to extract layer sha256:2d3d970f99d98a72de3c72499ef9b53fc989bea405933fec69e24be65aa694d0: write /var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/231/fs/usr/local/lib/python3.11/site-packages/contourpy/__pycache__/convert.cpython-311.pyc: no space left on device
+------
+ > exporting to image:
+------
+ERROR: failed to build: failed to solve: failed to extract layer sha256:2d3d970f99d98a72de3c72499ef9b53fc989bea405933fec69e24be65aa694d0: write /var/lib/containerd/io.containerd.snapshotter.v1.overlayfs/snapshots/231/fs/usr/local/lib/python3.11/site-packages/contourpy/__pycache__/convert.cpython-311.pyc: no space left on device
+Service 'kasir-app' failed to build : Build failed
+
+## env_check (exit=1)
+ERR:
+Error response from daemon: No such container: kasir-toko-sembako
+
+## ps (exit=0)
+
+result: ok

@@ -1,0 +1,144 @@
+{
+  "name": "Kasir Toko Sembako",
+  "icon": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+  "tagline": "Sistem Kasir & Inventory untuk Toko Retail",
+  "overview": "Aplikasi kasir modern dengan fitur management produk, transaksi, member, backup otomatis, dan integrasi Telegram bot.",
+  "thumbnail": "",
+  "screenshots": [],
+  "category": "Business",
+  "developer": "Custom",
+  "author": "Custom",
+  "title": "Kasir Toko Sembako",
+  "description": {
+    "en_us": "Complete point of sale system with inventory management, automatic backup, and Telegram integration for retail stores."
+  },
+  "tagline": {
+    "en_us": "Modern POS System for Retail"
+  },
+  "tags": [
+    "pos",
+    "kasir",
+    "retail",
+    "inventory",
+    "business",
+    "python",
+    "flask"
+  ],
+  "version": "1.0.0",
+  "requirements": {
+    "memory": "512",
+    "disk": "1"
+  },
+  "tips": {
+    "before_install": [
+      {
+        "content": "Pastikan port 5000 tersedia di sistem Anda.",
+        "en_us": "Make sure port 5000 is available on your system."
+      },
+      {
+        "content": "Login default - Admin: admin/admin123, Kasir: kasir/kasir123",
+        "en_us": "Default login - Admin: admin/admin123, Cashier: kasir/kasir123"
+      }
+    ],
+    "after_install": [
+      {
+        "content": "Akses aplikasi di http://[your-ip]:5000",
+        "en_us": "Access the application at http://[your-ip]:5000"
+      },
+      {
+        "content": "Segera ganti password default setelah login pertama!",
+        "en_us": "Change default passwords immediately after first login!"
+      }
+    ]
+  },
+  "port_map": "5000",
+  "scheme": "http",
+  "index": "/",
+  "store_app_id": "kasir-toko-sembako",
+  "image": "kasir-toko-sembako:latest",
+  "restart": "unless-stopped",
+  "container_name": "kasir-toko-sembako",
+  "network_model": "bridge",
+  "privileged": false,
+  "x-casaos": {
+    "architectures": [
+      "amd64",
+      "arm64",
+      "arm"
+    ],
+    "main": "app.app_simple:app",
+    "description": {
+      "en_us": "Modern POS system with:\n- Product & Inventory Management\n- Transaction & Sales Tracking\n- Member Management\n- Automatic Backup\n- Telegram Bot Integration\n- Multiple Price Tiers\n- Report & Analytics"
+    },
+    "tagline": {
+      "en_us": "Complete POS Solution"
+    },
+    "developer": "Custom",
+    "author": "Custom",
+    "icon": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+    "title": {
+      "en_us": "Kasir Toko Sembako"
+    },
+    "category": "Business",
+    "port_map": "5000"
+  },
+  "volumes": [
+    {
+      "container": "/app/instance",
+      "host": "/DATA/AppData/kasir-app/instance",
+      "mode": "rw"
+    },
+    {
+      "container": "/app/backups",
+      "host": "/DATA/AppData/kasir-app/backups",
+      "mode": "rw"
+    },
+    {
+      "container": "/app/data",
+      "host": "/DATA/AppData/kasir-app/data",
+      "mode": "rw"
+    }
+  ],
+  "devices": [],
+  "cap_add": [],
+  "environment": [
+    {
+      "name": "FLASK_APP",
+      "value": "app.app_simple:app"
+    },
+    {
+      "name": "SECRET_KEY",
+      "value": "rahasia-sangat-rahasia-123456",
+      "description": "Secret key for session security (change this!)"
+    },
+    {
+      "name": "TELEGRAM_BOT_TOKEN",
+      "value": "",
+      "description": "Telegram Bot Token from @BotFather (optional)"
+    },
+    {
+      "name": "TELEGRAM_ADMIN_CHAT_IDS",
+      "value": "",
+      "description": "Admin Chat IDs (comma-separated, optional)"
+    },
+    {
+      "name": "TELEGRAM_NOTIFY_NEW_TRANSACTION",
+      "value": "false",
+      "description": "Enable transaction notifications (true/false)"
+    },
+    {
+      "name": "PYTHONUNBUFFERED",
+      "value": "1"
+    }
+  ],
+  "ports": [
+    {
+      "container": "5000",
+      "host": "5000",
+      "type": "tcp",
+      "allocation": "preferred",
+      "configurable": "advanced",
+      "description": "Web UI Port"
+    }
+  ]
+}

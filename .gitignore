@@ -1,0 +1,81 @@
+# Environment and sensitive files
+.env
+.env.local
+*.env
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ENV/
+
+# Instance and backup folders
+instance/
+backups/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+deployment_log.txt
+server_docker_logs.txt
+
+# Temporary files
+*.tmp
+*.bak
+*.html.backup
+
+# Test and deployment scripts (sementara tidak dipush)
+test_*.py
+check_*.py
+debug_*.py
+analyze_*.py
+cleanup_*.py
+deploy_*.py
+verify_*.py
+recovery_*.py
+wait_*.py
+extract_*.py
+direct_*.py
+final_*.py
+quick_*.py
+simple_*.py
+force_*.py
+get_*.py
+restart_*.py
+clear_*.py
+app_simple.py
+app_simple_b64.txt
+telegram_bot.py
+login_page.html
+server_response_laporan.html
+
+# Duplicate and backup folders
+Connect to Telegram Fitur Komplit - Copy/
+connect-ai-chat/
+img/
+
+# Documentation backups
+BACKUP_*.txt
+BACKUP_*.md

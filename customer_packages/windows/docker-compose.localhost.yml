@@ -1,0 +1,24 @@
+services:
+  kasir-app:
+    image: ${KASIR_IMAGE:-kasir-app:latest}
+    container_name: kasir-localhost
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      - LICENSE_SERVER_URL=${LICENSE_SERVER_URL}
+      - LICENSE_SERVER_PUBLIC_KEY_B64=${LICENSE_SERVER_PUBLIC_KEY_B64}
+      - KASIR_LICENSE_KEY=${KASIR_LICENSE_KEY}
+      - DEVICE_FINGERPRINT=${DEVICE_FINGERPRINT}
+      - LICENSE_ENFORCE=true
+      - LICENSE_PING=true
+      - SEED_PRODUCTS_NAMES_ONLY=true
+
+      # Telegram (hanya aktif untuk Pro/Unlimited; Standard akan diabaikan)
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ADMIN_CHAT_IDS=${TELEGRAM_ADMIN_CHAT_IDS}
+      - TELEGRAM_NOTIFY_NEW_TRANSACTION=${TELEGRAM_NOTIFY_NEW_TRANSACTION}
+      - TELEGRAM_NOTIFY_LOW_STOCK_THRESHOLD=${TELEGRAM_NOTIFY_LOW_STOCK_THRESHOLD}
+
+    volumes:
+      - ./instance:/app/instance
+    restart: unless-stopped

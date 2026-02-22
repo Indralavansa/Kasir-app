@@ -1,0 +1,282 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Daftar Produk{% endblock %}
+
+{% block extra_css %}
+<style>
+    .produk-filter .btn {
+        font-size: 0.875rem;
+        line-height: 1.2;
+        padding: 0.35rem 0.75rem;
+        font-weight: 500;
+    }
+
+    .produk-filter .btn.btn-primary {
+        background: #3a56d4;
+        border-color: #3a56d4;
+        color: #ffffff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4><i class="fas fa-box me-2"></i>Daftar Produk</h4>
+        <p class="text-muted mb-0">Kelola produk dan stok toko</p>
+    </div>
+    
+    {% if current_user.role == 'admin' %}
+    <a href="{{ url_for('tambah_produk') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Tambah Produk
+    </a>
+    {% endif %}
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <!-- Filter + Search -->
+        <div class="mb-3">
+            {% if kategori_filter %}
+            <div class="alert alert-info d-flex justify-content-between align-items-center py-2">
+                <div>
+                    <i class="fas fa-tag me-1"></i>Filter kategori: <strong>{{ kategori_filter.nama }}</strong>
+                </div>
+                <a href="{{ url_for('list_produk', filter=filter_stok, q=search) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-times me-1"></i>Hapus Filter
+                </a>
+            </div>
+            {% endif %}
+            <div class="btn-group mb-3 produk-filter" role="group" aria-label="Filter Stok">
+                <a href="{{ url_for('list_produk', filter='semua', q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}" 
+                   class="btn btn-sm {% if filter_stok == 'semua' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                    <i class="fas fa-list me-1"></i>Semua Produk
+                </a>
+                <a href="{{ url_for('list_produk', filter='tersedia', q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}" 
+                   class="btn btn-sm {% if filter_stok == 'tersedia' %}btn-success{% else %}btn-outline-success{% endif %}">
+                    <i class="fas fa-check-circle me-1"></i>Stok Tersedia
+                </a>
+                <a href="{{ url_for('list_produk', filter='hampir_habis', q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}" 
+                   class="btn btn-sm {% if filter_stok == 'hampir_habis' %}btn-warning text-white{% else %}btn-outline-warning{% endif %}">
+                    <i class="fas fa-exclamation-triangle me-1"></i>Hampir Habis
+                </a>
+                <a href="{{ url_for('list_produk', filter='habis', q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}" 
+                   class="btn btn-sm {% if filter_stok == 'habis' %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                    <i class="fas fa-times-circle me-1"></i>Stok Habis
+                </a>
+            </div>
+
+            <form method="GET" class="row g-2 align-items-center">
+                <input type="hidden" name="filter" value="{{ filter_stok }}">
+                {% if kategori_filter %}
+                <input type="hidden" name="kategori_id" value="{{ kategori_filter.id }}">
+                {% endif %}
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" name="q" class="form-control" placeholder="Cari kode atau nama produk" value="{{ search }}">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-outline-primary">Cari</button>
+                </div>
+                <div class="col-auto">
+                    <a href="{{ url_for('list_produk', filter=filter_stok) }}" class="btn btn-outline-secondary">Reset</a>
+                </div>
+            </form>
+        </div>
+        
+        {% if produk_list %}
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Nama Produk</th>
+                        <th>Harga Beli</th>
+                        <th>Harga Jual</th>
+                        <th>Keuntungan</th>
+                        <th>Harga Variasi</th>
+                        <th>Stok</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produk in produk_list %}
+                    <tr>
+                        <td><strong>{{ produk.kode }}</strong></td>
+                        <td>{{ produk.nama }}</td>
+                        <td>Rp {{ "{:,.0f}".format(produk.harga_beli) }}</td>
+                        <td>Rp {{ "{:,.0f}".format(produk.harga_jual) }}</td>
+                        <td>Rp {{ "{:,.0f}".format(produk.harga_jual - produk.harga_beli) }}</td>
+                        <td>
+                            {% if produk.harga_variasi %}
+                                {% for variant in produk.harga_variasi %}
+                                <div class="mb-1">
+                                    <span class="badge bg-success">{{ variant.min_qty }}+ = Rp {{ "{:,.0f}".format(variant.harga) }}</span>
+                                    {% if variant.keterangan %}<small class="text-muted">({{ variant.keterangan }})</small>{% endif %}
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ produk.stok }} {{ produk.satuan }}</td>
+                        <td>
+                            {% if produk.stok == 0 %}
+                            <span class="badge bg-danger">Habis</span>
+                            {% elif produk.stok <= produk.minimal_stok %}
+                            <span class="badge bg-warning">Hampir Habis</span>
+                            {% else %}
+                            <span class="badge bg-success">Tersedia</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if current_user.role == 'admin' %}
+                            <a href="{{ url_for('edit_produk', id=produk.id) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ url_for('hapus_produk', id=produk.id) }}" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus produk {{ produk.nama }}?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% if produk.varian_produk %}
+                        {% for varian in produk.varian_produk %}
+                        <tr class="table-light">
+                            <td><small><i class="fas fa-arrow-right me-1"></i>{{ varian.barcode_varian }}</small></td>
+                            <td><small><em>{{ produk.nama }} - {{ varian.nama_varian }}</em></small></td>
+                            <td colspan="4"><small class="text-muted">Varian dengan barcode: {{ varian.barcode_varian }}</small></td>
+                            <td><small>{{ varian.stok }} {{ produk.satuan }}</small></td>
+                            <td>
+                                {% if varian.stok == 0 %}
+                                <span class="badge bg-danger">Habis</span>
+                                {% elif varian.stok <= produk.minimal_stok %}
+                                <span class="badge bg-warning">Hampir Habis</span>
+                                {% else %}
+                                <span class="badge bg-success">Tersedia</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if current_user.role == 'admin' %}
+                                <button type="button" class="btn btn-sm btn-info" onclick="editVarianStok({{ varian.id }}, '{{ varian.nama_varian }}', {{ varian.stok }})">
+                                    <i class="fas fa-edit"></i> Stok
+                                </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if pagination and pagination.pages > 1 %}
+        <nav aria-label="Pagination Produk" class="mt-3">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('list_produk', page=pagination.prev_num, per_page=pagination.per_page, filter=filter_stok, q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Hal {{ pagination.page }} / {{ pagination.pages }} ({{ pagination.total }} data)</span>
+                </li>
+                <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('list_produk', page=pagination.next_num, per_page=pagination.per_page, filter=filter_stok, q=search, kategori_id=kategori_filter.id if kategori_filter else None) }}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Belum ada produk</h5>
+            <p class="text-muted">Tambahkan produk pertama Anda</p>
+            {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('tambah_produk') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Tambah Produk
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal Edit Stok Varian -->
+<div class="modal fade" id="editVarianStokModal" tabindex="-1" aria-labelledby="editVarianStokModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editVarianStokModalLabel">Edit Stok Varian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editVarianStokForm">
+                <div class="modal-body">
+                    <input type="hidden" id="varianId" name="varian_id">
+                    <div class="mb-3">
+                        <label for="varianNama" class="form-label">Nama Varian</label>
+                        <input type="text" class="form-control" id="varianNama" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="varianStok" class="form-label">Stok Baru</label>
+                        <input type="number" class="form-control" id="varianStok" name="stok" min="0" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function editVarianStok(varianId, namaVarian, currentStok) {
+    document.getElementById('varianId').value = varianId;
+    document.getElementById('varianNama').value = namaVarian;
+    document.getElementById('varianStok').value = currentStok;
+    
+    const modal = new bootstrap.Modal(document.getElementById('editVarianStokModal'));
+    modal.show();
+}
+
+document.getElementById('editVarianStokForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const varianId = document.getElementById('varianId').value;
+    const stok = document.getElementById('varianStok').value;
+    
+    fetch(`/api/varian/${varianId}/stok`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ stok: parseInt(stok) })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editVarianStokModal'));
+            modal.hide();
+            
+            // Reload page to show updated data
+            location.reload();
+        } else {
+            alert('Gagal update stok: ' + (data.message || 'Unknown error'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat update stok');
+    });
+});
+</script>
+
+{% endblock %}

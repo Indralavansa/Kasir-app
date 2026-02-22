@@ -1,0 +1,51 @@
+timestamp: 2026-02-19T22:19:14
+
+target: root@192.168.1.25:22
+
+## docker_version (exit=0)
+docker --version || true
+
+Docker version 29.2.1, build a5c7197
+
+
+
+## compose_version (exit=0)
+docker compose version || docker-compose version || true
+
+Docker Compose version v5.0.2
+
+
+
+## containers_port_5000 (exit=0)
+docker ps --filter publish=5000 --format '{{.Names}}|{{.Status}}|{{.Ports}}' || true
+
+kasir-toko-sembako-kasir-toko-sembako-1|Up 47 minutes (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+
+## containers_kasir_name (exit=0)
+docker ps --filter name=kasir-toko-sembako --format '{{.Names}}|{{.Status}}|{{.Ports}}' || true
+
+e3ceec420e09_kasir-toko-sembako|Up 48 minutes (healthy)|
+kasir-toko-sembako-kasir-toko-sembako-1|Up 48 minutes (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+
+## containers_kasir_grep (exit=0)
+docker ps --format '{{.Names}}|{{.Status}}|{{.Ports}}' | grep -i kasir || true
+
+e3ceec420e09_kasir-toko-sembako|Up 48 minutes (healthy)|
+kasir-toko-sembako-kasir-toko-sembako-1|Up 48 minutes (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+
+## compose_ps (exit=0)
+cd /DATA/lost+found/kasir-app 2>/dev/null && (docker-compose ps 2>/dev/null || docker compose ps 2>/dev/null) || true
+
+Name                            Command                  State       Ports
+---------------------------------------------------------------------------------------
+e3ceec420e09_kasir-toko-sembako   python -m flask run --host ...   Up (healthy)
+
+
+
+result: ok

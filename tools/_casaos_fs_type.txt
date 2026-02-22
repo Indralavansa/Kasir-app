@@ -1,0 +1,12 @@
+timestamp: 2026-02-20T00:48:14
+
+## df (exit=0)
+Filesystem                                                    Type           Size  Used Avail Use% Mounted on
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9 fuse.mergerfs  694G   13G  674G   2% /DATA
+/dev/sda1                                                     ext4           687G  8.4G  672G   2% /media/devmon/sda1-ata-HGST_HTS541075A9
+
+## stat_data (exit=0)
+fuseblk ?
+
+## stat_mount (exit=0)
+ext2/ext3 ?

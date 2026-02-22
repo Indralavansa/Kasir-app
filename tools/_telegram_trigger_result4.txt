@@ -1,0 +1,71 @@
+timestamp: 2026-02-19T23:28:24
+
+## hit_app (exit=0)
+HIT_OK
+
+## check_telegram_available (exit=0)
+telegram_bot_import_ok
+
+## logs_tail (exit=0)
+============================================================
+KASIR TOKO SEMBAKO - WITH SIMPLE BACKUP SYSTEM
+============================================================
+[TIME] Local System Time: 2026-02-19 16:28:08
+[TIME] Detected Timezone: UTC+0
+============================================================
+ * Serving Flask app 'app.app_simple:app'
+ * Debug mode: off
+✅ Telegram Bot started (auto)
+ERR:
+2026-02-19 16:28:08,773 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2026-02-19 16:28:08,773 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-19 16:28:09,854 - app.telegram_bot - INFO - 🤖 Telegram Bot thread started
+2026-02-19 16:28:09,857 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:09] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:28:10,088 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:10] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:28:10,107 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-02-19 16:28:10,109 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-02-19 16:28:10,111 - apscheduler.scheduler - INFO - Added job "Send daily report" to job store "default"
+2026-02-19 16:28:10,113 - apscheduler.scheduler - INFO - Added job "Morning stock check" to job store "default"
+2026-02-19 16:28:10,113 - apscheduler.scheduler - INFO - Scheduler started
+2026-02-19 16:28:10,114 - app.telegram_bot - INFO - ✅ Scheduler started successfully
+2026-02-19 16:28:10,114 - app.telegram_bot - INFO - 🤖 Telegram Bot Pro started successfully!
+2026-02-19 16:28:10,115 - app.telegram_bot - INFO - ✅ All features enabled: Search, Export, Broadcast, Charts, Smart Notifications
+2026-02-19 16:28:10,775 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getMe "HTTP/1.1 200 OK"
+2026-02-19 16:28:10,977 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/deleteWebhook "HTTP/1.1 200 OK"
+2026-02-19 16:28:10,987 - apscheduler.scheduler - INFO - Scheduler started
+2026-02-19 16:28:10,988 - telegram.ext.Application - INFO - Application started
+2026-02-19 16:28:21,574 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 16:28:28,030 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:28] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:28:28,057 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:28] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:28:31,771 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getUpdates "HTTP/1.1 200 OK"
+
+## logs_telegram_grep (exit=0)
+✅ Telegram Bot started (auto)
+ERR:
+2026-02-19 16:28:08,773 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2026-02-19 16:28:08,773 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-19 16:28:09,854 - app.telegram_bot - INFO - 🤖 Telegram Bot thread started
+2026-02-19 16:28:09,857 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:09] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:28:10,088 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:10] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:28:10,107 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-02-19 16:28:10,109 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-02-19 16:28:10,111 - apscheduler.scheduler - INFO - Added job "Send daily report" to job store "default"
+2026-02-19 16:28:10,113 - apscheduler.scheduler - INFO - Added job "Morning stock check" to job store "default"
+2026-02-19 16:28:10,113 - apscheduler.scheduler - INFO - Scheduler started
+2026-02-19 16:28:10,114 - app.telegram_bot - INFO - ✅ Scheduler started successfully
+2026-02-19 16:28:10,114 - app.telegram_bot - INFO - 🤖 Telegram Bot Pro started successfully!
+2026-02-19 16:28:10,115 - app.telegram_bot - INFO - ✅ All features enabled: Search, Export, Broadcast, Charts, Smart Notifications
+2026-02-19 16:28:10,775 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getMe "HTTP/1.1 200 OK"
+2026-02-19 16:28:10,977 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/deleteWebhook "HTTP/1.1 200 OK"
+2026-02-19 16:28:10,987 - apscheduler.scheduler - INFO - Scheduler started
+2026-02-19 16:28:10,988 - telegram.ext.Application - INFO - Application started
+2026-02-19 16:28:21,574 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getUpdates "HTTP/1.1 200 OK"
+2026-02-19 16:28:28,030 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:28] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:28:28,057 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:28:28] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:28:31,771 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8543074554:AAGTXBj5kBw3rI1ZF02UkQVw4w7InN18Rkk/getUpdates "HTTP/1.1 200 OK"

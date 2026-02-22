@@ -1,0 +1,167 @@
+timestamp: 2026-02-20T00:50:47
+
+## docker_root (exit=0)
+/media/devmon/sda1-ata-HGST_HTS541075A9/docker
+
+## containerd_link (exit=0)
+lrwxrwxrwx 1 root root 50 Feb 20 01:49 /var/lib/containerd -> /media/devmon/sda1-ata-HGST_HTS541075A9/containerd
+/media/devmon/sda1-ata-HGST_HTS541075A9/containerd
+
+## kasir_up_no_build (exit=0)
+__EXIT:0
+#10 58.37 Downloading packaging-26.0-py3-none-any.whl (74 kB)
+#10 58.39    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.4/74.4 kB 16.5 MB/s eta 0:00:00
+#10 58.43 Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+#10 58.45    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 kB 16.9 MB/s eta 0:00:00
+#10 58.49 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#10 58.53 Downloading sqlalchemy-2.0.46-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (3.3 MB)
+#10 58.97    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 7.9 MB/s eta 0:00:00
+#10 59.01 Downloading tzlocal-5.3.1-py3-none-any.whl (18 kB)
+#10 59.05 Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+#10 59.08    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 kB 12.9 MB/s eta 0:00:00
+#10 59.12 Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+#10 59.16 Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+#10 59.24    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 kB 8.5 MB/s eta 0:00:00
+#10 59.28 Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+#10 59.32 Downloading greenlet-3.3.1-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (577 kB)
+#10 59.40    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 577.2/577.2 kB 8.4 MB/s eta 0:00:00
+#10 59.44 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+#10 59.46    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 17.7 MB/s eta 0:00:00
+#10 59.50 Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+#10 59.52    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.6/113.6 kB 16.0 MB/s eta 0:00:00
+#10 59.56 Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+#10 59.60 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#10 62.64 Installing collected packages: webencodings, pytz, urllib3, tzlocal, typing-extensions, sniffio, six, python-dotenv, pyparsing, Pillow, packaging, numpy, markupsafe, kiwisolver, itsdangerous, idna, h11, greenlet, fonttools, et-xmlfile, cycler, click, charset-normalizer, certifi, cachetools, blinker, WTForms, werkzeug, sqlalchemy, requests, reportlab, python-dateutil, openpyxl, Jinja2, httpcore, contourpy, bleach, APScheduler, anyio, matplotlib, httpx, Flask, python-telegram-bot, Flask-WTF, Flask-SQLAlchemy, Flask-Login
+#10 134.0 Successfully installed APScheduler-3.10.4 Flask-3.0.3 Flask-Login-0.6.3 Flask-SQLAlchemy-3.1.1 Flask-WTF-1.2.1 Jinja2-3.1.6 Pillow-10.1.0 WTForms-3.1.2 anyio-4.12.1 bleach-6.0.0 blinker-1.9.0 cachetools-5.3.2 certifi-2026.1.4 charset-normalizer-3.4.4 click-8.3.1 contourpy-1.3.3 cycler-0.12.1 et-xmlfile-2.0.0 fonttools-4.61.1 greenlet-3.3.1 h11-0.16.0 httpcore-1.0.9 httpx-0.26.0 idna-3.11 itsdangerous-2.2.0 kiwisolver-1.4.9 markupsafe-3.0.3 matplotlib-3.8.2 numpy-1.26.4 openpyxl-3.1.2 packaging-26.0 pyparsing-3.3.2 python-dateutil-2.8.2 python-dotenv-1.0.1 python-telegram-bot-20.8 pytz-2025.2 reportlab-4.0.7 requests-2.31.0 six-1.17.0 sniffio-1.3.1 sqlalchemy-2.0.46 typing-extensions-4.15.0 tzlocal-5.3.1 urllib3-2.6.3 webencodings-0.5.1 werkzeug-3.0.4
+#10 134.0 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#10 135.0 
+#10 135.0 [notice] A new release of pip is available: 24.0 -> 26.0.1
+#10 135.0 [notice] To update, run: pip install --upgrade pip
+#10 DONE 141.4s
+
+#11 [6/7] COPY . .
+#11 DONE 3.4s
+
+#12 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#12 DONE 2.4s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 86.3s done
+#13 exporting manifest sha256:591ac7af986bbbfc802c288307dd907bbd71f822ea4d02b64141d97cae721e5a
+#13 exporting manifest sha256:591ac7af986bbbfc802c288307dd907bbd71f822ea4d02b64141d97cae721e5a 0.3s done
+#13 exporting config sha256:3dfde12678e0f89554c8981525b9a53fb496589d4b54a1f5efd59a720d95007e
+#13 exporting config sha256:3dfde12678e0f89554c8981525b9a53fb496589d4b54a1f5efd59a720d95007e 0.4s done
+#13 exporting attestation manifest sha256:9fdf4fea231d6f9432aa017a63ea1fcd1a9a580419e05166538d304778e74235
+#13 exporting attestation manifest sha256:9fdf4fea231d6f9432aa017a63ea1fcd1a9a580419e05166538d304778e74235 0.6s done
+#13 exporting manifest list sha256:8de5654d6f0a0460a1a045bf20159b9667b8ddfaad62bbe4ecb243725d66e9ca
+#13 exporting manifest list sha256:8de5654d6f0a0460a1a045bf20159b9667b8ddfaad62bbe4ecb243725d66e9ca 0.3s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest
+#13 naming to docker.io/library/kasir-toko-sembako:latest 0.0s done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 43.4s done
+#13 DONE 132.3s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.1s
+ Image kasir-toko-sembako:latest Built 
+ Container kasir-toko-sembako Creating 
+ Container kasir-toko-sembako Created 
+ Container kasir-toko-sembako Starting 
+ Container kasir-toko-sembako Started
+
+## chat_up_build (exit=0)
+__EXIT:0
+#9 17.95   Downloading werkzeug-3.1.6-py3-none-any.whl.metadata (4.0 kB)
+#9 18.14 Collecting Jinja2>=3.1.2 (from Flask==3.0.3->-r requirements.txt (line 1))
+#9 18.18   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 18.31 Collecting itsdangerous>=2.1.2 (from Flask==3.0.3->-r requirements.txt (line 1))
+#9 18.36   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#9 18.58 Collecting click>=8.1.3 (from Flask==3.0.3->-r requirements.txt (line 1))
+#9 18.62   Downloading click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+#9 18.74 Collecting blinker>=1.6.2 (from Flask==3.0.3->-r requirements.txt (line 1))
+#9 18.78   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#9 19.85 Collecting charset-normalizer<4,>=2 (from requests==2.31.0->-r requirements.txt (line 2))
+#9 19.89   Downloading charset_normalizer-3.4.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (37 kB)
+#9 20.09 Collecting idna<4,>=2.5 (from requests==2.31.0->-r requirements.txt (line 2))
+#9 20.13   Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+#9 20.57 Collecting urllib3<3,>=1.21.1 (from requests==2.31.0->-r requirements.txt (line 2))
+#9 20.61   Downloading urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+#9 20.85 Collecting certifi>=2017.4.17 (from requests==2.31.0->-r requirements.txt (line 2))
+#9 20.89   Downloading certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+#9 21.60 Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->Flask==3.0.3->-r requirements.txt (line 1))
+#9 21.64   Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl.metadata (2.7 kB)
+#9 21.83 Downloading flask-3.0.3-py3-none-any.whl (101 kB)
+#9 21.87    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.7/101.7 kB 5.4 MB/s eta 0:00:00
+#9 21.92 Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#9 21.94    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 10.0 MB/s eta 0:00:00
+#9 21.98 Downloading python_dotenv-1.0.1-py3-none-any.whl (19 kB)
+#9 22.02 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#9 22.07 Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+#9 22.11    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 152.9/152.9 kB 4.9 MB/s eta 0:00:00
+#9 22.16 Downloading charset_normalizer-3.4.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (147 kB)
+#9 22.21    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 147.3/147.3 kB 4.4 MB/s eta 0:00:00
+#9 22.25 Downloading click-8.3.1-py3-none-any.whl (108 kB)
+#9 22.29    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.3/108.3 kB 5.4 MB/s eta 0:00:00
+#9 22.33 Downloading idna-3.11-py3-none-any.whl (71 kB)
+#9 22.36    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.0/71.0 kB 8.7 MB/s eta 0:00:00
+#9 22.40 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#9 22.44 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 22.49    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 4.2 MB/s eta 0:00:00
+#9 22.53 Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+#9 22.57    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 kB 4.4 MB/s eta 0:00:00
+#9 22.61 Downloading werkzeug-3.1.6-py3-none-any.whl (225 kB)
+#9 22.69    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 225.2/225.2 kB 3.8 MB/s eta 0:00:00
+#9 22.73 Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)
+#9 23.67 Installing collected packages: urllib3, python-dotenv, MarkupSafe, itsdangerous, idna, click, charset-normalizer, certifi, blinker, Werkzeug, requests, Jinja2, Flask
+#9 30.25 Successfully installed Flask-3.0.3 Jinja2-3.1.6 MarkupSafe-3.0.3 Werkzeug-3.1.6 blinker-1.9.0 certifi-2026.1.4 charset-normalizer-3.4.4 click-8.3.1 idna-3.11 itsdangerous-2.2.0 python-dotenv-1.0.1 requests-2.31.0 urllib3-2.6.3
+#9 30.26 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#9 30.99 
+#9 30.99 [notice] A new release of pip is available: 24.0 -> 26.0.1
+#9 30.99 [notice] To update, run: pip install --upgrade pip
+#9 DONE 33.7s
+
+#10 [5/5] COPY . .
+#10 DONE 1.2s
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 11.0s done
+#11 exporting manifest sha256:31f2afe86570cf0f9f6c2065b037eecedaa44f73a8444e4a0c8b79734787046c
+#11 exporting manifest sha256:31f2afe86570cf0f9f6c2065b037eecedaa44f73a8444e4a0c8b79734787046c 0.3s done
+#11 exporting config sha256:1ec24788427d50ef5c1b924ea55616658e07165217bec8c08d71ba1082b4f480
+#11 exporting config sha256:1ec24788427d50ef5c1b924ea55616658e07165217bec8c08d71ba1082b4f480 0.3s done
+#11 exporting attestation manifest sha256:51e08155c65dc73574edb330366c07cb4acc589859d0a4ec6481a7ff89b30f1a
+#11 exporting attestation manifest sha256:51e08155c65dc73574edb330366c07cb4acc589859d0a4ec6481a7ff89b30f1a 0.7s done
+#11 exporting manifest list sha256:4c7b65a725e2d0354786ffb13627c66825b806077ab4e9e2dfd855eac671a4c5
+#11 exporting manifest list sha256:4c7b65a725e2d0354786ffb13627c66825b806077ab4e9e2dfd855eac671a4c5 0.3s done
+#11 naming to docker.io/library/connect-ai-chat:latest
+#11 naming to docker.io/library/connect-ai-chat:latest 0.0s done
+#11 unpacking to docker.io/library/connect-ai-chat:latest
+#11 unpacking to docker.io/library/connect-ai-chat:latest 3.5s done
+#11 DONE 16.5s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.1s
+ Image connect-ai-chat:latest Built 
+ Container connect-ai-chat-ollama Creating 
+ Container connect-ai-chat-ollama Created 
+ Container connect-ai-chat Creating 
+ Container connect-ai-chat Created 
+ Container connect-ai-chat-ollama Starting 
+ Container connect-ai-chat-ollama Started 
+ Container connect-ai-chat Starting 
+ Container connect-ai-chat Started
+
+## ollama_pull (exit=0)
+__EXIT:0
+Error: could not connect to ollama server, run 'ollama serve' to start it
+
+## ports (exit=0)
+connect-ai-chat|0.0.0.0:8090->8080/tcp, [::]:8090->8080/tcp
+kasir-toko-sembako|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+## ps (exit=0)
+connect-ai-chat|Up 4 seconds|0.0.0.0:8090->8080/tcp, [::]:8090->8080/tcp
+connect-ai-chat-ollama|Up 6 seconds|11434/tcp
+kasir-toko-sembako|Up About a minute (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp

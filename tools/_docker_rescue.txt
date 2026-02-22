@@ -1,0 +1,30 @@
+timestamp: 2026-02-20T00:05:02
+host: 192.168.1.25
+
+## list_backups (exit=0)
+drwx--x--- 11 root          root          4096 Feb 18 21:17 docker.bak_
+/var/lib/docker.bak_
+
+## show_daemon_json (exit=0)
+{
+  data-root: /DATA/docker
+}
+
+## restore_varlib (exit=1)
+backup:
+ERR:
+mv: missing destination file operand after '/var/lib/docker'
+Try 'mv --help' for more information.
+
+## write_daemon_json_recover (exit=0)
+{
+  data-root: /var/lib/docker
+}
+
+## start_docker (exit=1)
+ERR:
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+## docker_ps (exit=0)
+ERR:
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?

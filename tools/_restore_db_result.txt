@@ -1,0 +1,121 @@
+timestamp: 2026-02-20T13:10:44
+host: 192.168.1.25
+remote_root: /DATA/lost+found/kasir-app
+local_root: d:/connect casa os/Connect to Telegram Fitur Komplit - Copy
+SYNC_OK: Dockerfile -> /DATA/lost+found/kasir-app/Dockerfile
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app/app_simple.py
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/app/telegram_bot.py
+SYNC_OK: requirements.txt -> /DATA/lost+found/kasir-app/requirements.txt
+SYNC_OK: docker-compose.yml -> /DATA/lost+found/kasir-app/docker-compose.yml
+SYNC_OK: .env -> /DATA/lost+found/kasir-app/.env
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/telegram_bot.py
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app_simple.py
+SYNC_OK: templates/ -> /DATA/lost+found/kasir-app/app/templates (24 files)
+  - base.html
+  - index.html
+  - test_csrf.html
+  - auth\login.html
+  - auth\register.html
+  ... and 19 more files
+
+## compose_down (exit=0)
+ERR:
+time="2026-02-20T14:10:52+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container kasir-toko-sembako Stopping 
+ Container kasir-toko-sembako Stopped 
+ Container kasir-toko-sembako Removing 
+ Container kasir-toko-sembako Removed 
+ Network kasir-app_kasir-network Removing 
+ Network kasir-app_kasir-network Removed
+
+## compose_up (exit=0)
+__EXIT:0
+#13 exporting layers 2.0s done
+#13 exporting manifest sha256:913f44231a93fe77f62564a084acc372f044e5b438be7bd2fffcc15274dafaac
+#13 exporting manifest sha256:913f44231a93fe77f62564a084acc372f044e5b438be7bd2fffcc15274dafaac 0.3s done
+#13 exporting config sha256:1745b3635133eb08c4f5c5629c89dc478a189f124afe4def67ca299e5beb85cd
+#13 exporting config sha256:1745b3635133eb08c4f5c5629c89dc478a189f124afe4def67ca299e5beb85cd 0.3s done
+#13 exporting attestation manifest sha256:d711f6c0cc9f2316eda3a4657d00ac84d46140e05d9b7818e3f4c21d42165490
+#13 exporting attestation manifest sha256:d711f6c0cc9f2316eda3a4657d00ac84d46140e05d9b7818e3f4c21d42165490 0.6s done
+#13 exporting manifest list sha256:c5b33155e8b4ebd243e4cb69f83ed6b03cfbf66a952dce03cf049efe603aa333
+#13 exporting manifest list sha256:c5b33155e8b4ebd243e4cb69f83ed6b03cfbf66a952dce03cf049efe603aa333 0.2s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest
+#13 naming to docker.io/library/kasir-toko-sembako:latest 0.0s done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 0.1s done
+#13 ERROR: failed to prepare extraction snapshot "extract-841149598-SqXX sha256:5f42511cde981ac095bbb8e0b2be34a5e136d80c98ff146d2efa0a855e1f0af8": parent snapshot sha256:5598324cf25ec04b5d207600a632c02188bae4406d76fb035390ed6227c97ff6 does not exist: not found
+------
+ > exporting to image:
+------
+failed to solve: failed to prepare extraction snapshot "extract-841149598-SqXX sha256:5f42511cde981ac095bbb8e0b2be34a5e136d80c98ff146d2efa0a855e1f0af8": parent snapshot sha256:5598324cf25ec04b5d207600a632c02188bae4406d76fb035390ed6227c97ff6 does not exist: not found
+
+Creating network "kasir-app_kasir-network" with driver "bridge"
+Building kasir-app
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.03kB 0.0s done
+#1 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.7s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.3s done
+#5 DONE 0.4s
+
+#4 [internal] load build context
+#4 transferring context: 2.42kB 0.1s done
+#4 DONE 0.2s
+
+#6 [2/7] WORKDIR /app
+#6 CACHED
+
+#7 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [4/7] COPY requirements.txt .
+#8 CACHED
+
+#9 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [6/7] COPY . .
+#10 CACHED
+
+#11 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#11 CACHED
+
+#12 exporting to image
+#12 exporting layers 0.0s done
+#12 exporting manifest sha256:b731fb02aaa761cbc9e1809b0fa67285e9547a39e7bc95a696a919d18faa9cfb
+#12 exporting manifest sha256:b731fb02aaa761cbc9e1809b0fa67285e9547a39e7bc95a696a919d18faa9cfb 0.3s done
+#12 exporting config sha256:cf5b8b5f67a5c0b12098c3dc421caa51b915c5951bb71d46bdf1a9f4ce9fbacd
+#12 exporting config sha256:cf5b8b5f67a5c0b12098c3dc421caa51b915c5951bb71d46bdf1a9f4ce9fbacd 0.3s done
+#12 exporting attestation manifest sha256:c999cf069e37e0b720ccf4c534879135effe2984e705dea90f2f5146a27563c4
+#12 exporting attestation manifest sha256:c999cf069e37e0b720ccf4c534879135effe2984e705dea90f2f5146a27563c4 0.5s done
+#12 exporting manifest list sha256:254d59863ff0cc269ca90da15c156517b363ec6f6cfe20bfe25d8ef49c800161
+#12 exporting manifest list sha256:254d59863ff0cc269ca90da15c156517b363ec6f6cfe20bfe25d8ef49c800161 0.3s done
+#12 naming to docker.io/library/kasir-toko-sembako:latest
+#12 naming to docker.io/library/kasir-toko-sembako:latest 0.0s done
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest 38.6s done
+#12 DONE 40.9s
+Creating kasir-toko-sembako ... 
+Creating kasir-toko-sembako ... done
+
+## env_check (exit=0)
+TOKEN_LEN= 46
+ADMIN_SET= True
+
+## ps (exit=0)
+kasir-toko-sembako|Up 2 seconds (health: starting)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+result: ok

@@ -1,0 +1,34 @@
+timestamp: 2026-02-20T00:21:31
+host: 192.168.1.25
+target: /DATA/containerd
+
+## df_before (exit=0)
+Filesystem                                                     Size  Used Avail Use% Mounted on
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  60% /
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  60% /
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9  694G  3.9G  683G   1% /DATA
+
+## stop_services (exit=0)
+stopped
+
+## prepare_target (exit=0)
+ready
+
+## copy_containerd (exit=0)
+src_is_symlink
+
+## backup_and_symlink (exit=0)
+symlinked
+
+## start_services (exit=0)
+/DATA/docker
+
+## docker_ps (exit=0)
+
+## df_after (exit=0)
+Filesystem                                                     Size  Used Avail Use% Mounted on
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  60% /
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  60% /
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9  694G  3.9G  683G   1% /DATA
+
+result: ok

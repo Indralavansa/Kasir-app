@@ -1,0 +1,122 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Welcome Card -->
+<div class="welcome-card">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h3 class="mb-2">Selamat Datang, {{ current_user.nama }}! 👋</h3>
+            <p class="mb-0">Sistem kasir toko sembako siap membantu penjualan Anda.</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="user-avatar d-inline-flex">
+                <i class="fas fa-user-tie"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="fas fa-box"></i>
+            </div>
+            <div class="stat-number">{{ total_produk }}</div>
+            <div class="stat-label">Total Produk</div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <i class="fas fa-receipt"></i>
+            </div>
+            <div class="stat-number">{{ total_transaksi }}</div>
+            <div class="stat-label">Transaksi Hari Ini</div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-number">{{ produk_habis }}</div>
+            <div class="stat-label">Produk Habis/Hampir Habis</div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions & Recent Activity -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="quick-actions">
+            <h5 class="mb-4"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            
+            <a href="{{ url_for('kasir') }}" class="action-btn">
+                <i class="fas fa-cash-register text-success"></i>
+                <div>
+                    <strong>Buka Kasir</strong>
+                    <p class="mb-0 small">Mulai transaksi penjualan baru</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('list_produk') }}" class="action-btn">
+                <i class="fas fa-box text-primary"></i>
+                <div>
+                    <strong>Kelola Produk</strong>
+                    <p class="mb-0 small">Tambah/edit produk dan stok</p>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('list_transaksi') }}" class="action-btn">
+                <i class="fas fa-history text-info"></i>
+                <div>
+                    <strong>Riwayat Transaksi</strong>
+                    <p class="mb-0 small">Lihat semua transaksi</p>
+                </div>
+            </a>
+            
+            {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('laporan') }}" class="action-btn">
+                <i class="fas fa-chart-bar text-warning"></i>
+                <div>
+                    <strong>Laporan Penjualan</strong>
+                    <p class="mb-0 small">Analisis data penjualan</p>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="quick-actions">
+            <h5 class="mb-4"><i class="fas fa-info-circle me-2"></i>Panduan Sistem</h5>
+            
+            <div class="mb-3">
+                <h6><i class="fas fa-cash-register text-success me-2"></i>Kasir</h6>
+                <p class="small mb-2">Klik produk untuk menambahkan ke keranjang, isi pembayaran, lalu checkout.</p>
+            </div>
+            
+            <div class="mb-3">
+                <h6><i class="fas fa-box text-primary me-2"></i>Produk</h6>
+                <p class="small mb-2">Kelola produk, kategori, dan pantau stok. Stok <span class="badge bg-danger">merah</span> berarti habis, <span class="badge bg-warning">kuning</span> berarti hampir habis.</p>
+            </div>
+            
+            <div class="mb-3">
+                <h6><i class="fas fa-chart-bar text-warning me-2"></i>Laporan</h6>
+                <p class="small mb-2">Hanya Admin yang bisa mengakses laporan dan manajemen user.</p>
+            </div>
+            
+            <div class="mt-4 p-3 bg-light rounded">
+                <h6><i class="fas fa-headset me-2"></i>Support</h6>
+                <p class="small mb-0">Butuh bantuan? Hubungi: <strong>085764034717</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

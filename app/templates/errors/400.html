@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}400 - Permintaan Tidak Valid{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h1 class="display-1">400</h1>
+                    <h2>Permintaan Tidak Valid</h2>
+                    <p class="lead">Permintaan tidak dapat diproses. Silakan refresh halaman dan coba lagi.</p>
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Kembali ke Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

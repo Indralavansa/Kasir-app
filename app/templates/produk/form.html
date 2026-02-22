@@ -1,0 +1,339 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-{% if title == 'Tambah Produk' %}plus{% else %}edit{% endif %} me-2"></i>{{ title }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.kode.label(class="form-label") }}
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                        {{ form.kode(class="form-control" if not form.kode.errors else "form-control is-invalid") }}
+                    </div>
+                    {% if form.kode.errors %}
+                        <div class="invalid-feedback d-block">
+                            <i class="fas fa-exclamation-circle"></i> 
+                            {% for error in form.kode.errors %}
+                                <strong>{{ error }}</strong>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    {{ form.nama.label(class="form-label") }}
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-box"></i></span>
+                        {{ form.nama(class="form-control" if not form.nama.errors else "form-control is-invalid") }}
+                    </div>
+                    {% if form.nama.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.nama.errors %}
+                                <strong>{{ error }}</strong>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                {{ form.deskripsi.label(class="form-label") }}
+                {{ form.deskripsi(class="form-control", rows="3") }}
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.harga_beli.label(class="form-label") }}
+                    {{ form.harga_beli(class="form-control" if not form.harga_beli.errors else "form-control is-invalid") }}
+                    {% if form.harga_beli.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.harga_beli.errors %}
+                                <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    {{ form.harga_jual.label(class="form-label") }}
+                    {{ form.harga_jual(class="form-control" if not form.harga_jual.errors else "form-control is-invalid") }}
+                    {% if form.harga_jual.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.harga_jual.errors %}
+                                <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Harga Variasi Section -->
+            <div class="card mb-3 border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0"><i class="fas fa-tags me-2"></i>Harga Variasi (Tier Pricing)</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small mb-3">
+                        <i class="fas fa-info-circle"></i> Atur harga berbeda berdasarkan jumlah pembelian. Contoh: 1-9 pcs = Rp 1000, 10-49 pcs = Rp 900, 50+ pcs = Rp 800
+                    </p>
+                    
+                    <div id="price-variants-container">
+                        {% if produk and produk.harga_variasi %}
+                            {% for variant in produk.harga_variasi %}
+                            <div class="price-variant-item mb-2">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <label class="form-label small">Minimal Quantity</label>
+                                        <input type="number" class="form-control" name="variant_min_qty[]" value="{{ variant.min_qty }}" min="1" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label small">Harga per Unit</label>
+                                        <input type="number" class="form-control" name="variant_harga[]" value="{{ variant.harga }}" min="0" step="0.01" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small">Keterangan (Opsional)</label>
+                                        <input type="text" class="form-control" name="variant_keterangan[]" value="{{ variant.keterangan or '' }}" placeholder="Misal: Grosir">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="form-label small d-block">&nbsp;</label>
+                                        <button type="button" class="btn btn-danger btn-sm remove-variant">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <button type="button" id="add-variant" class="btn btn-outline-primary btn-sm mt-2">
+                        <i class="fas fa-plus me-1"></i> Tambah Tier Harga
+                    </button>
+                    
+                    <div class="alert alert-info mt-3 mb-0">
+                        <small>
+                            <strong>Tips:</strong> Urutkan dari qty terkecil. Sistem akan otomatis memilih harga terendah yang sesuai dengan jumlah pembelian.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Varian Barang Section -->
+            <div class="card mb-3 border-success">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0"><i class="fas fa-clone me-2"></i>Varian Barang Lainnya</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small mb-3">
+                        <i class="fas fa-info-circle"></i> Tambahkan varian barang dengan nama dan barcode yang berbeda. Contoh: Varian ukuran kecil, kemasan berbeda, dll.
+                    </p>
+                    
+                    <div id="product-variants-container">
+                        {% if produk and produk.varian_produk %}
+                            {% for varian in produk.varian_produk %}
+                            <div class="product-variant-item mb-2">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <label class="form-label small">Nama Varian Barang</label>
+                                        <input type="text" class="form-control" name="varian_nama[]" value="{{ varian.nama_varian }}" placeholder="Contoh: Varian A, Kemasan Besar" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label small">Barcode Varian</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                            <input type="text" class="form-control" name="varian_barcode[]" value="{{ varian.barcode_varian }}" placeholder="Barcode unik untuk varian ini" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small">Stok Varian</label>
+                                        <input type="number" class="form-control" name="varian_stok[]" value="{{ varian.stok }}" min="0" placeholder="0" required>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="form-label small d-block">&nbsp;</label>
+                                        <button type="button" class="btn btn-danger btn-sm remove-product-variant">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <button type="button" id="add-product-variant" class="btn btn-outline-success btn-sm mt-2">
+                        <i class="fas fa-plus me-1"></i> Tambah Varian Barang
+                    </button>
+                    
+                    <div class="alert alert-info mt-3 mb-0">
+                        <small>
+                            <strong>Tips:</strong> Setiap varian harus memiliki barcode yang unik untuk memudahkan identifikasi saat transaksi.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    {{ form.stok.label(class="form-label") }}
+                    {{ form.stok(class="form-control" if not form.stok.errors else "form-control is-invalid") }}
+                    {% if form.stok.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.stok.errors %}
+                                <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    {{ form.minimal_stok.label(class="form-label") }}
+                    {{ form.minimal_stok(class="form-control" if not form.minimal_stok.errors else "form-control is-invalid") }}
+                    {% if form.minimal_stok.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.minimal_stok.errors %}
+                                <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    {{ form.satuan.label(class="form-label") }}
+                    {{ form.satuan(class="form-control" if not form.satuan.errors else "form-control is-invalid") }}
+                    {% if form.satuan.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.satuan.errors %}
+                                <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                {{ form.kategori_id.label(class="form-label") }}
+                {{ form.kategori_id(class="form-select" if not form.kategori_id.errors else "form-select is-invalid") }}
+                {% if form.kategori_id.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.kategori_id.errors %}
+                            <small><i class="fas fa-exclamation-circle"></i> {{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('list_produk') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Kembali
+                </a>
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ============ PRICE VARIANTS (Harga Variasi) ============
+    const priceContainer = document.getElementById('price-variants-container');
+    const addPriceButton = document.getElementById('add-variant');
+    
+    // Add new price variant
+    if (addPriceButton) {
+        addPriceButton.addEventListener('click', function() {
+            const variantItem = document.createElement('div');
+            variantItem.className = 'price-variant-item mb-2';
+            variantItem.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-4">
+                        <label class="form-label small">Minimal Quantity</label>
+                        <input type="number" class="form-control" name="variant_min_qty[]" min="1" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">Harga per Unit</label>
+                        <input type="number" class="form-control" name="variant_harga[]" min="0" step="0.01" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small">Keterangan (Opsional)</label>
+                        <input type="text" class="form-control" name="variant_keterangan[]" placeholder="Misal: Grosir">
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label small d-block">&nbsp;</label>
+                        <button type="button" class="btn btn-danger btn-sm remove-variant">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            priceContainer.appendChild(variantItem);
+        });
+    }
+    
+    // Remove price variant (event delegation)
+    if (priceContainer) {
+        priceContainer.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-variant')) {
+                e.target.closest('.price-variant-item').remove();
+            }
+        });
+    }
+    
+    // ============ PRODUCT VARIANTS (Varian Barang) ============
+    const productVariantContainer = document.getElementById('product-variants-container');
+    const addProductVariantButton = document.getElementById('add-product-variant');
+    
+    // Add new product variant
+    if (addProductVariantButton) {
+        addProductVariantButton.addEventListener('click', function() {
+            const variantItem = document.createElement('div');
+            variantItem.className = 'product-variant-item mb-2';
+            variantItem.innerHTML = `
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-4">
+                        <label class="form-label small">Nama Varian Barang</label>
+                        <input type="text" class="form-control" name="varian_nama[]" placeholder="Contoh: Varian A, Kemasan Besar" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small">Barcode Varian</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                            <input type="text" class="form-control" name="varian_barcode[]" placeholder="Barcode unik untuk varian ini" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small">Stok Varian</label>
+                        <input type="number" class="form-control" name="varian_stok[]" min="0" placeholder="0" required>
+                    </div>
+                    <div class="col-md-1">
+                        <label class="form-label small d-block">&nbsp;</label>
+                        <button type="button" class="btn btn-danger btn-sm remove-product-variant">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            productVariantContainer.appendChild(variantItem);
+        });
+    }
+    
+    // Remove product variant (event delegation)
+    if (productVariantContainer) {
+        productVariantContainer.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-product-variant')) {
+                e.target.closest('.product-variant-item').remove();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

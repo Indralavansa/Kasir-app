@@ -1,0 +1,58 @@
+timestamp: 2026-02-19T23:14:25
+
+## hit_app (exit=0)
+HIT_OK
+
+## check_telegram_available (exit=1)
+ERR:
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'telegram_bot'
+
+## logs_tail (exit=0)
+[WARNING] Telegram bot module not available. Install: pip install python-telegram-bot
+============================================================
+KASIR TOKO SEMBAKO - WITH SIMPLE BACKUP SYSTEM
+============================================================
+[TIME] Local System Time: 2026-02-19 16:13:09
+[TIME] Detected Timezone: UTC+0
+============================================================
+ * Serving Flask app 'app.app_simple:app'
+ * Debug mode: off
+ERR:
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [19/Feb/2026 16:13:11] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:13:12] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:13:43] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:13:43] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:14:14] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:14:14] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:14:29] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:14:29] "GET /login HTTP/1.1" 200 -
+
+## logs_telegram_grep (exit=0)
+[WARNING] Telegram bot module not available. Install: pip install python-telegram-bot
+ERR:
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [19/Feb/2026 16:13:11] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:13:12] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:13:43] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:13:43] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:14:14] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:14:14] "GET /login HTTP/1.1" 200 -
+127.0.0.1 - - [19/Feb/2026 16:14:29] "[32mGET / HTTP/1.1[0m" 302 -
+127.0.0.1 - - [19/Feb/2026 16:14:29] "GET /login HTTP/1.1" 200 -

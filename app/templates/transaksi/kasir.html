@@ -1,0 +1,1093 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Kasir{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-card {
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-color: #4361ee;
+    }
+    
+    .cart-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    #cartItems {
+        max-height: 500px; /* ~5 items */
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 5px;
+    }
+    
+    #cartItems::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    #cartItems::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    #cartItems::-webkit-scrollbar-thumb {
+        background: #28a745;
+        border-radius: 10px;
+    }
+    
+    #cartItems::-webkit-scrollbar-thumb:hover {
+        background: #218838;
+    }
+    
+    .cart-total {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4361ee;
+    }
+    
+    .cart-change {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .payment-methods {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 12px;
+        background-color: #f8f9fa;
+    }
+    
+    .payment-methods .form-check {
+        margin-bottom: 8px;
+    }
+    
+    .payment-methods .form-check:last-child {
+        margin-bottom: 0;
+    }
+    
+    .payment-methods .form-check-input {
+        border-color: #4361ee;
+    }
+    
+    .payment-methods .form-check-input:checked {
+        background-color: #4361ee;
+        border-color: #4361ee;
+    }
+    
+    .payment-methods .form-check-label {
+        margin-left: 5px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+    
+    .member-verified {
+        border-color: #28a745 !important;
+        border-width: 2px !important;
+    }
+    
+    .member-unverified {
+        border-color: #dc3545 !important;
+        border-width: 2px !important;
+    }
+    
+    .member-neutral {
+        border-color: #ced4da;
+    }
+    
+    .member-suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        max-height: 250px;
+        overflow-y: auto;
+        z-index: 1000;
+        margin-top: 4px;
+        display: none;
+    }
+    
+    .member-suggestions.show {
+        display: block;
+    }
+    
+    .member-suggestion-item {
+        padding: 12px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .member-suggestion-item:last-child {
+        border-bottom: none;
+    }
+    
+    .member-suggestion-item:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .member-suggestion-item:hover .member-icon {
+        background: white;
+        color: #667eea;
+    }
+    
+    .member-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 16px;
+        flex-shrink: 0;
+        transition: all 0.2s;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-weight: 600;
+        margin-bottom: 2px;
+        font-size: 14px;
+    }
+    
+    .member-phone {
+        font-size: 12px;
+        color: #6c757d;
+    }
+    
+    .member-suggestion-item:hover .member-phone {
+        color: rgba(255,255,255,0.9);
+    }
+    
+    .no-results {
+        padding: 20px;
+        text-align: center;
+        color: #6c757d;
+        font-style: italic;
+    }
+    
+    .products-container {
+        max-height: calc(3 * 210px); /* 3 baris x tinggi card ~210px = 9 produk */
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 5px;
+    }
+    
+    .products-container::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .products-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .products-container::-webkit-scrollbar-thumb {
+        background: #4361ee;
+        border-radius: 10px;
+    }
+    
+    .products-container::-webkit-scrollbar-thumb:hover {
+        background: #3451ce;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-shopping-basket me-2"></i>Daftar Produk</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" id="productSearch" class="form-control" placeholder="Cari nama atau barcode">
+                        </div>
+                        <small class="text-muted">Ketik nama barang atau barcode</small>
+                    </div>
+                </div>
+                <div class="products-container">
+                    <div class="row" id="productGrid"></div>
+                </div>
+                <div class="text-center text-muted mt-3 d-none" id="noProductResults">
+                    Tidak ada produk yang cocok.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card sticky-top" style="top: 20px;">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Keranjang Belanja</h5>
+            </div>
+            <div class="card-body">
+                <div id="cartItems">
+                    <div class="text-center py-4">
+                        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">Keranjang kosong</p>
+                        <small>Klik produk untuk menambahkan</small>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total:</span>
+                        <span class="cart-total" id="cartTotal">Rp 0</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Bayar</label>
+                        <input type="number" id="payment" class="form-control" placeholder="Jumlah bayar" min="0">
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Kembalian:</span>
+                        <span class="cart-change text-success" id="change">Rp 0</span>
+                    </div>
+
+                    <div class="mb-3" style="position: relative;">
+                        <label class="form-label">Member</label>
+                        <input type="text" id="memberInput" class="form-control member-neutral" placeholder="Ketik nama atau nomor telepon" autocomplete="off">
+                        <input type="hidden" id="memberIdHidden">
+                        <div id="memberSuggestions" class="member-suggestions"></div>
+                        <small class="text-muted" id="memberStatus">Pilih dari daftar atau ketik manual</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Metode Pembayaran</label>
+                        <div class="payment-methods">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="methTunai" value="tunai" checked>
+                                <label class="form-check-label" for="methTunai">
+                                    <i class="fas fa-money-bill me-1"></i>Tunai
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="methQRIS" value="qris">
+                                <label class="form-check-label" for="methQRIS">
+                                    <i class="fas fa-qrcode me-1"></i>QRIS
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="methEWallet" value="ewallet">
+                                <label class="form-check-label" for="methEWallet">
+                                    <i class="fas fa-credit-card me-1"></i>E-Wallet
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="methDebit" value="debit">
+                                <label class="form-check-label" for="methDebit">
+                                    <i class="fas fa-credit-card me-1"></i>Debit
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="methHutang" value="hutang">
+                                <label class="form-check-label" for="methHutang">
+                                    <i class="fas fa-handshake me-1"></i>Hutang
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success btn-lg" id="btnCheckout" disabled>
+                            <i class="fas fa-cash-register me-2"></i>Checkout
+                        </button>
+                        <button class="btn btn-outline-danger" id="btnClearCart">
+                            <i class="fas fa-trash me-2"></i>Kosongkan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let cart = [];
+    let cartTotal = 0;
+    
+    function formatRupiah(angka) {
+        return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    
+    function addToCart(id, name, priceNormal, priceVariants, scannedVariant = null) {
+        // Cek apakah produk sudah ada di keranjang
+        const existingItem = cart.find(item => {
+            // Produk original (scannedVariant null) hanya cocok dengan produk original lainnya
+            if (!scannedVariant && !item.scannedVariant) {
+                return item.id === id;
+            }
+            // Varian (scannedVariant ada) hanya cocok dengan varian yang sama
+            else if (scannedVariant && item.scannedVariant) {
+                return item.id === id && item.scannedVariant.barcode === scannedVariant.barcode;
+            }
+            // Produk original tidak cocok dengan varian, dan sebaliknya
+            return false;
+        });
+        
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({
+                id: id,
+                name: name,
+                priceNormal: priceNormal,
+                priceVariants: priceVariants,  // Array of {min_qty, harga}
+                quantity: 1,
+                currentPrice: priceNormal,
+                total: priceNormal,
+                scannedVariant: scannedVariant  // {barcode, nama} or null
+            });
+        }
+        
+        // Recalculate price based on quantity
+        recalculateItemPrice(existingItem || cart[cart.length - 1]);
+        updateCart();
+    }
+    
+    function recalculateItemPrice(item) {
+        // Cek di price variants jika ada
+        if (item.priceVariants && item.priceVariants.length > 0) {
+            // Sort descending by min_qty untuk cek dari qty terbesar
+            const sortedVariants = [...item.priceVariants].sort((a, b) => b.min_qty - a.min_qty);
+            
+            // Cari harga yang sesuai dengan quantity
+            let foundPrice = null;
+            for (const variant of sortedVariants) {
+                if (item.quantity >= variant.min_qty) {
+                    foundPrice = variant.harga;
+                    break;
+                }
+            }
+            
+            item.currentPrice = foundPrice || item.priceNormal;
+        } else {
+            item.currentPrice = item.priceNormal;
+        }
+        
+        item.total = item.quantity * item.currentPrice;
+    }
+    
+    function updateCart() {
+        // Hitung total
+        cartTotal = cart.reduce(function(sum, item) {
+            return sum + item.total;
+        }, 0);
+        
+        // Update display total
+        document.getElementById('cartTotal').textContent = formatRupiah(cartTotal);
+        
+        // Update cart items display
+        const cartItemsDiv = document.getElementById('cartItems');
+        
+        if (cart.length === 0) {
+            cartItemsDiv.innerHTML = '<div class="text-center py-4"><i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i><p class="text-muted">Keranjang kosong</p><small>Klik produk untuk menambahkan</small></div>';
+        } else {
+            let html = '';
+            cart.forEach(function(item, index) {
+                // Cari tier yang sedang aktif
+                let priceLabel = formatRupiah(item.currentPrice);
+                let tierInfo = '';
+                
+                if (item.priceVariants && item.priceVariants.length > 0) {
+                    const activeVariant = item.priceVariants
+                        .sort((a, b) => b.min_qty - a.min_qty)
+                        .find(v => item.quantity >= v.min_qty);
+                    
+                    if (activeVariant) {
+                        tierInfo = activeVariant.keterangan || `Tier ${activeVariant.min_qty}+`;
+                        priceLabel = '<span class="badge bg-success">' + formatRupiah(item.currentPrice) + ' (' + tierInfo + ')</span>';
+                    }
+                }
+                
+                // Tampilkan nama produk dengan varian jika ada
+                let displayName = item.name;
+                let variantInfo = '';
+                if (item.scannedVariant) {
+                    displayName = item.name + ' - ' + item.scannedVariant.nama;
+                    variantInfo = '<small class="text-muted">Barcode: ' + item.scannedVariant.barcode + '</small>';
+                }
+                
+                html += '<div class="cart-item"><div class="d-flex justify-content-between align-items-center"><div><h6 class="mb-1">' + displayName + '</h6>' + (variantInfo ? '<div>' + variantInfo + '</div>' : '') + '<p class="text-muted small mb-0">' + priceLabel + '</p></div><div class="text-end"><div class="input-group input-group-sm mb-2" style="width: 120px;"><button class="btn btn-outline-secondary qty-decrease" data-index="' + index + '"><i class="fas fa-minus"></i></button><input type="text" class="form-control text-center" value="' + item.quantity + '" readonly><button class="btn btn-outline-secondary qty-increase" data-index="' + index + '"><i class="fas fa-plus"></i></button></div><h6 class="mb-1">' + formatRupiah(item.total) + '</h6><button class="btn btn-sm btn-outline-danger remove-item" data-index="' + index + '"><i class="fas fa-trash"></i></button></div></div></div>';
+            });
+            cartItemsDiv.innerHTML = html;
+        }
+        
+        // Update checkout button
+        document.getElementById('btnCheckout').disabled = cart.length === 0;
+        updateChange();
+    }
+    
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+    
+    function increaseQty(index) {
+        cart[index].quantity++;
+        recalculateItemPrice(cart[index]);
+        updateCart();
+    }
+    
+    function decreaseQty(index) {
+        if (cart[index].quantity > 1) {
+            cart[index].quantity--;
+            recalculateItemPrice(cart[index]);
+        } else {
+            removeFromCart(index);
+        }
+        updateCart();
+    }
+    
+    function clearCart() {
+        if (cart.length > 0 && confirm('Kosongkan keranjang?')) {
+            cart = [];
+            updateCart();
+            document.getElementById('payment').value = '';
+            
+            // Clear member fields
+            const memberInput = document.getElementById('memberInput');
+            const memberIdHidden = document.getElementById('memberIdHidden');
+            const memberStatus = document.getElementById('memberStatus');
+            
+            if (memberInput) {
+                memberInput.value = '';
+                memberInput.classList.remove('member-verified', 'member-unverified');
+                memberInput.classList.add('member-neutral');
+            }
+            if (memberIdHidden) {
+                memberIdHidden.value = '';
+            }
+            if (memberStatus) {
+                memberStatus.textContent = 'Pilih dari daftar atau ketik manual';
+                memberStatus.className = 'text-muted';
+            }
+            
+            updateChange();
+        }
+    }
+    
+    function updateChange() {
+        const paymentInput = document.getElementById('payment');
+        const payment = parseFloat(paymentInput.value) || 0;
+        const change = payment - cartTotal;
+        
+        const changeElement = document.getElementById('change');
+        if (change >= 0) {
+            changeElement.textContent = formatRupiah(change);
+            changeElement.className = 'cart-change text-success';
+        } else {
+            changeElement.textContent = formatRupiah(Math.abs(change)) + ' kurang';
+            changeElement.className = 'cart-change text-danger';
+        }
+    }
+    
+    function checkout() {
+        const paymentInput = document.getElementById('payment');
+        const payment = parseFloat(paymentInput.value) || 0;
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const memberIdHidden = document.getElementById('memberIdHidden');
+        const memberInput = document.getElementById('memberInput');
+        const memberId = memberIdHidden.value ? parseInt(memberIdHidden.value) : null;
+        const memberManual = !memberId && memberInput.value.trim() ? memberInput.value.trim() : null;
+        
+        if (payment < cartTotal) {
+            alert('Jumlah pembayaran kurang!');
+            return;
+        }
+        
+        // Format data untuk backend (backend expects: id, quantity, price, scannedVariant)
+        const itemsForBackend = cart.map(item => ({
+            id: item.id,
+            quantity: item.quantity,
+            price: item.currentPrice,  // Harga yang sedang dipakai (bisa jual atau grosir)
+            scanned_variant: item.scannedVariant  // {barcode, nama} or null
+        }));
+        
+        // Kirim data ke server
+        fetch('/transaksi/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                items: itemsForBackend,
+                total: cartTotal,
+                bayar: payment,
+                payment_method: paymentMethod,
+                member_id: memberId,
+                member_manual: memberManual
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect ke halaman struk
+                window.location.href = '/transaksi/struk/' + data.transaksi_id;
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Terjadi kesalahan: ' + error.message);
+        });
+    }
+    
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('productSearch');
+        const productGrid = document.getElementById('productGrid');
+        const noResults = document.getElementById('noProductResults');
+        let productAbortController = null;
+        let searchDebounce = null;
+
+        function escapeHtml(text) {
+            return (text || '').toString()
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function buildProductCardHtml(p) {
+            const variants = Array.isArray(p.harga_variasi) ? p.harga_variasi : [];
+            const varianProduk = Array.isArray(p.varian_produk) ? p.varian_produk : [];
+            const barcodeVariants = varianProduk.map(v => v.barcode_varian).filter(Boolean);
+            const variantNames = varianProduk.map(v => v.nama_varian || '');
+            const variantStoks = varianProduk.map(v => (typeof v.stok === 'number' ? v.stok : 0));
+
+            const hasVarian = barcodeVariants.length > 0;
+            const stokBadge = (p.stok || 0) > 0 ? 'success' : 'danger';
+
+            let tierHtml = '';
+            if (variants.length > 0) {
+                const tierItems = variants.map(v => {
+                    const ket = v.keterangan ? `<span class="badge bg-success">${escapeHtml(v.keterangan)}</span>` : '';
+                    return `<div class="ms-2">${v.min_qty}+ pcs = ${formatRupiah(Math.round(v.harga || 0))} ${ket}</div>`;
+                }).join('');
+                tierHtml = `
+                    <div class="text-success small mb-1">
+                        <i class="fas fa-tags"></i> Harga Variasi:
+                        ${tierItems}
+                    </div>
+                `;
+            }
+
+            const varianBadge = hasVarian
+                ? `
+                    <div class="small mb-1">
+                        <span class="badge bg-info">
+                            <i class="fas fa-tags"></i> ${barcodeVariants.length} Varian
+                        </span>
+                    </div>
+                `
+                : '';
+
+            const varianIcon = hasVarian ? '<i class="fas fa-list-ul text-info ms-1" title="Produk memiliki varian"></i>' : '';
+
+            return `
+                <div class="col-md-4 mb-3 product-item">
+                    <div class="product-card"
+                        data-id="${p.id}"
+                        data-name="${escapeHtml(p.nama)}"
+                        data-code="${escapeHtml(p.kode || '')}"
+                        data-price="${p.harga_jual || 0}"
+                        data-variants="${encodeURIComponent(JSON.stringify(variants))}"
+                        data-barcode-variants="${encodeURIComponent(JSON.stringify(barcodeVariants))}"
+                        data-variant-names="${encodeURIComponent(JSON.stringify(variantNames))}"
+                        data-variant-stoks="${encodeURIComponent(JSON.stringify(variantStoks))}">
+                        <h6 class="mb-1">${escapeHtml(p.nama)} ${varianIcon}</h6>
+                        <p class="text-muted small mb-1">${escapeHtml(p.kode || '')}</p>
+                        ${varianBadge}
+                        <h5 class="text-primary mb-1">${formatRupiah(Math.round(p.harga_jual || 0))}</h5>
+                        ${tierHtml}
+                        <span class="badge bg-${stokBadge}">Stok: ${p.stok || 0}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts(list) {
+            if (!productGrid) {
+                return;
+            }
+            const safeList = Array.isArray(list) ? list : [];
+            productGrid.innerHTML = safeList.map(buildProductCardHtml).join('');
+            if (noResults) {
+                noResults.classList.toggle('d-none', safeList.length > 0);
+            }
+        }
+
+        async function fetchProducts(query) {
+            if (productAbortController) {
+                productAbortController.abort();
+            }
+            productAbortController = new AbortController();
+
+            const url = new URL('/api/produk', window.location.origin);
+            url.searchParams.set('limit', '50');
+            if (query) {
+                url.searchParams.set('search', query);
+            }
+
+            const resp = await fetch(url.toString(), { signal: productAbortController.signal });
+            if (!resp.ok) {
+                throw new Error(`Gagal ambil produk (${resp.status})`);
+            }
+            return await resp.json();
+        }
+
+        async function refreshProducts(query) {
+            try {
+                const products = await fetchProducts((query || '').trim());
+                renderProducts(products);
+            } catch (e) {
+                if (e && e.name === 'AbortError') {
+                    return;
+                }
+                console.warn('refreshProducts error:', e);
+            }
+        }
+
+        async function addByBarcodeApi(query) {
+            const normalized = (query || '').trim().toLowerCase();
+            if (!normalized) {
+                return false;
+            }
+
+            let products = [];
+            try {
+                products = await fetchProducts(normalized);
+            } catch (e) {
+                if (e && e.name === 'AbortError') {
+                    return false;
+                }
+                console.warn('addByBarcodeApi error:', e);
+                return false;
+            }
+
+            const safeProducts = Array.isArray(products) ? products : [];
+            let matched = null;
+            let scannedVariant = null;
+
+            for (const p of safeProducts) {
+                const kode = (p.kode || '').toString().toLowerCase();
+                if (kode && kode === normalized) {
+                    matched = p;
+                    scannedVariant = null;
+                    break;
+                }
+
+                const varianList = Array.isArray(p.varian_produk) ? p.varian_produk : [];
+                for (const v of varianList) {
+                    const barcode = (v.barcode_varian || '').toString().toLowerCase();
+                    if (barcode && barcode === normalized) {
+                        matched = p;
+                        scannedVariant = {
+                            barcode: v.barcode_varian,
+                            nama: v.nama_varian || 'Varian'
+                        };
+                        break;
+                    }
+                }
+                if (matched) {
+                    break;
+                }
+            }
+
+            if (!matched) {
+                return false;
+            }
+
+            const priceVariants = Array.isArray(matched.harga_variasi) ? matched.harga_variasi : [];
+
+            // Jika scan kode utama dan produk punya varian -> tampilkan modal
+            if (scannedVariant === null) {
+                const varianList = Array.isArray(matched.varian_produk) ? matched.varian_produk : [];
+                if (varianList.length > 0) {
+                    const barcodeVariants = varianList.map(v => v.barcode_varian).filter(Boolean);
+                    const variantNames = varianList.map(v => v.nama_varian || '');
+                    const variantStoks = varianList.map(v => (typeof v.stok === 'number' ? v.stok : 0));
+                    if (barcodeVariants.length > 0) {
+                        showVariantSelectionModal(matched.id, matched.nama, matched.harga_jual || 0, priceVariants, barcodeVariants, variantNames, variantStoks);
+                        return true;
+                    }
+                }
+            }
+
+            addToCart(matched.id, matched.nama, matched.harga_jual || 0, priceVariants, scannedVariant);
+            return true;
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchDebounce);
+                const q = (searchInput.value || '').trim();
+                searchDebounce = setTimeout(() => refreshProducts(q), 150);
+            });
+
+            searchInput.addEventListener('keydown', async function(e) {
+                if (e.key !== 'Enter') {
+                    return;
+                }
+                e.preventDefault();
+                const q = searchInput.value || '';
+                const added = await addByBarcodeApi(q);
+                if (added) {
+                    searchInput.value = '';
+                    refreshProducts('');
+                }
+            });
+        }
+
+        if (productGrid) {
+            productGrid.addEventListener('click', function(e) {
+                const card = e.target.closest('.product-card');
+                if (!card) {
+                    return;
+                }
+
+                const id = parseInt(card.getAttribute('data-id'));
+                const name = card.getAttribute('data-name');
+                const priceNormal = parseFloat(card.getAttribute('data-price'));
+                const variantsJson = card.getAttribute('data-variants');
+                const priceVariants = variantsJson ? JSON.parse(decodeURIComponent(variantsJson)) : [];
+                const barcodeVariantsJson = card.getAttribute('data-barcode-variants');
+                const variantNamesJson = card.getAttribute('data-variant-names');
+                const variantStoksJson = card.getAttribute('data-variant-stoks');
+
+                if (barcodeVariantsJson && variantNamesJson) {
+                    try {
+                        const barcodeVariants = JSON.parse(decodeURIComponent(barcodeVariantsJson));
+                        const variantNames = JSON.parse(decodeURIComponent(variantNamesJson));
+                        const variantStoks = variantStoksJson ? JSON.parse(decodeURIComponent(variantStoksJson)) : [];
+                        if (Array.isArray(barcodeVariants) && barcodeVariants.length > 0) {
+                            showVariantSelectionModal(id, name, priceNormal, priceVariants, barcodeVariants, variantNames, variantStoks);
+                            return;
+                        }
+                    } catch (err) {
+                        console.warn('Error parsing variant data:', err);
+                    }
+                }
+
+                addToCart(id, name, priceNormal, priceVariants, null);
+            });
+        }
+
+        // Initial load
+        refreshProducts('');
+        
+        // Remove item dari keranjang (delegasi event)
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-item')) {
+                const index = parseInt(e.target.closest('.remove-item').getAttribute('data-index'));
+                removeFromCart(index);
+            }
+            if (e.target.closest('.qty-increase')) {
+                const index = parseInt(e.target.closest('.qty-increase').getAttribute('data-index'));
+                increaseQty(index);
+            }
+            if (e.target.closest('.qty-decrease')) {
+                const index = parseInt(e.target.closest('.qty-decrease').getAttribute('data-index'));
+                decreaseQty(index);
+            }
+        });
+        
+        // Clear cart button
+        document.getElementById('btnClearCart').addEventListener('click', clearCart);
+        
+        // Checkout button
+        document.getElementById('btnCheckout').addEventListener('click', checkout);
+        
+        // Input bayar
+        document.getElementById('payment').addEventListener('input', updateChange);
+        
+        // Member autocomplete
+        const memberInput = document.getElementById('memberInput');
+        const memberIdHidden = document.getElementById('memberIdHidden');
+        const memberSuggestions = document.getElementById('memberSuggestions');
+        const memberStatus = document.getElementById('memberStatus');
+
+        let memberAbortController = null;
+        let memberDebounce = null;
+        
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+        }
+        
+        function showMemberSuggestions(filtered) {
+            if (filtered.length === 0) {
+                memberSuggestions.innerHTML = '<div class="no-results"><i class="fas fa-users-slash"></i> Tidak ada member yang cocok</div>';
+                memberSuggestions.classList.add('show');
+                return;
+            }
+            
+            let html = '';
+            filtered.forEach(member => {
+                const initials = getInitials(member.nama);
+                const displayPhone = member.phone || 'Tidak ada nomor';
+                html += `
+                    <div class="member-suggestion-item" data-id="${member.id}" data-name="${member.nama}" data-phone="${member.phone}">
+                        <div class="member-icon">${initials}</div>
+                        <div class="member-info">
+                            <div class="member-name">${member.nama}</div>
+                            <div class="member-phone"><i class="fas fa-phone-alt"></i> ${displayPhone}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            memberSuggestions.innerHTML = html;
+            memberSuggestions.classList.add('show');
+            
+            // Add click handlers with mousedown (fires before blur)
+            memberSuggestions.querySelectorAll('.member-suggestion-item').forEach(item => {
+                item.addEventListener('mousedown', function(e) {
+                    e.preventDefault(); // Prevent blur
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    const phone = this.getAttribute('data-phone');
+                    
+                    memberInput.value = name + (phone ? ' - ' + phone : '');
+                    memberIdHidden.value = id;
+                    memberSuggestions.classList.remove('show');
+                    updateMemberBorder();
+                    memberInput.blur(); // Remove focus after selection
+                });
+            });
+        }
+
+        async function fetchMembers(query) {
+            if (memberAbortController) {
+                memberAbortController.abort();
+            }
+            memberAbortController = new AbortController();
+
+            const url = new URL('/api/member', window.location.origin);
+            url.searchParams.set('limit', '10');
+            if (query) {
+                url.searchParams.set('search', query);
+            }
+
+            const resp = await fetch(url.toString(), { signal: memberAbortController.signal });
+            if (!resp.ok) {
+                throw new Error(`Gagal ambil member (${resp.status})`);
+            }
+            const raw = await resp.json();
+            const list = Array.isArray(raw) ? raw : [];
+            return list.map(m => ({
+                id: m.id,
+                nama: m.nama,
+                phone: m.no_telp || ''
+            }));
+        }
+        
+        function updateMemberBorder() {
+            const inputValue = memberInput.value.trim();
+            const memberId = memberIdHidden.value;
+            
+            // Hapus semua class border
+            memberInput.classList.remove('member-verified', 'member-unverified', 'member-neutral');
+            
+            if (!inputValue) {
+                // Kosong = neutral
+                memberInput.classList.add('member-neutral');
+                memberStatus.textContent = 'Pilih dari daftar atau ketik manual';
+                memberStatus.className = 'text-muted';
+            } else if (memberId) {
+                // Ada member ID = terverifikasi (hijau)
+                memberInput.classList.add('member-verified');
+                memberStatus.textContent = '✓ Member terverifikasi';
+                memberStatus.className = 'text-success';
+            } else {
+                // Ada input tapi tidak ada member ID = manual/tidak terverifikasi (merah)
+                memberInput.classList.add('member-unverified');
+                memberStatus.textContent = '✗ Input manual (tidak dapat poin)';
+                memberStatus.className = 'text-danger';
+            }
+        }
+        
+        if (memberInput) {
+            memberInput.addEventListener('input', function() {
+                const inputValue = this.value.trim();
+                memberIdHidden.value = '';
+
+                clearTimeout(memberDebounce);
+                if (!inputValue) {
+                    memberSuggestions.classList.remove('show');
+                    updateMemberBorder();
+                    return;
+                }
+
+                memberDebounce = setTimeout(async () => {
+                    try {
+                        const results = await fetchMembers(inputValue);
+
+                        // Auto-select kalau input 4 digit dan hasil unik
+                        if (/^\d{4}$/.test(inputValue) && results.length === 1) {
+                            const member = results[0];
+                            if (member.phone && member.phone.slice(-4) === inputValue) {
+                                memberInput.value = member.nama + (member.phone ? ' - ' + member.phone : '');
+                                memberIdHidden.value = member.id;
+                                memberSuggestions.classList.remove('show');
+                                updateMemberBorder();
+                                return;
+                            }
+                        }
+
+                        if (results.length > 0) {
+                            showMemberSuggestions(results);
+                        } else {
+                            memberSuggestions.classList.remove('show');
+                        }
+                    } catch (e) {
+                        if (e && e.name === 'AbortError') {
+                            return;
+                        }
+                        console.warn('fetchMembers error:', e);
+                        memberSuggestions.classList.remove('show');
+                    }
+                    updateMemberBorder();
+                }, 200);
+                
+                // Update border setelah check
+                updateMemberBorder();
+            });
+            
+            // Clear saat focus
+            memberInput.addEventListener('focus', function() {
+                if (this.value === '' || this.value === 'Umum') {
+                    this.value = '';
+                    memberIdHidden.value = '';
+                    updateMemberBorder();
+                } else if (this.value.trim()) {
+                    const q = this.value.trim();
+                    fetchMembers(q)
+                        .then(results => {
+                            if (results.length > 0) {
+                                showMemberSuggestions(results);
+                            }
+                        })
+                        .catch(() => {
+                            memberSuggestions.classList.remove('show');
+                        });
+                }
+            });
+            
+            // Update border saat blur
+            memberInput.addEventListener('blur', function() {
+                // Delay untuk memberi waktu klik suggestion
+                setTimeout(() => {
+                    memberSuggestions.classList.remove('show');
+                    updateMemberBorder();
+                }, 150);
+            });
+        }
+        
+        // Update change saat halaman load
+        updateChange();
+    });
+
+    // Fungsi untuk menampilkan modal pemilihan varian
+    function showVariantSelectionModal(productId, productName, priceNormal, priceVariants, barcodeVariants, variantNames, variantStoks) {
+        const modal = new bootstrap.Modal(document.getElementById('variantSelectionModal'));
+        const variantOptions = document.getElementById('variantOptions');
+        
+        // Kosongkan options sebelumnya
+        variantOptions.innerHTML = '';
+        
+        // Update modal title
+        document.getElementById('variantSelectionModalLabel').textContent = `Pilih Varian - ${productName}`;
+        
+        // Buat tombol untuk setiap varian
+        barcodeVariants.forEach((barcode, index) => {
+            const variantName = variantNames[index] || `Varian ${index + 1}`;
+            const variantStok = variantStoks[index] || 0;
+            
+            const variantButton = document.createElement('button');
+            variantButton.type = 'button';
+            variantButton.className = 'btn btn-outline-primary w-100 mb-2';
+            variantButton.disabled = variantStok <= 0; // Disable jika stok habis
+            
+            const stokBadgeClass = variantStok > 0 ? 'bg-success' : 'bg-danger';
+            const stokText = variantStok > 0 ? `Stok: ${variantStok}` : 'Stok Habis';
+            
+            variantButton.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div>${productName} - ${variantName}</div>
+                        <small class="text-muted">Barcode: ${barcode}</small>
+                    </div>
+                    <span class="badge ${stokBadgeClass}">${stokText}</span>
+                </div>
+            `;
+            
+            if (variantStok > 0) {
+                variantButton.addEventListener('click', function() {
+                    const selectedVariant = {
+                        barcode: barcode,
+                        nama: variantName
+                    };
+                    
+                    addToCart(productId, productName, priceNormal, priceVariants, selectedVariant);
+                    modal.hide();
+                });
+            }
+            
+            variantOptions.appendChild(variantButton);
+        });
+        
+        modal.show();
+    }
+</script>
+
+<!-- Modal Pemilihan Varian -->
+<div class="modal fade" id="variantSelectionModal" tabindex="-1" aria-labelledby="variantSelectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="variantSelectionModalLabel">Pilih Varian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="variantOptions">
+                    <!-- Varian options akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Login - Kasir Toko Sembako{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        position: relative;
+        background: radial-gradient(circle at 20% 20%, rgba(76, 201, 240, 0.25), transparent 55%),
+                    radial-gradient(circle at 80% 30%, rgba(46, 204, 113, 0.2), transparent 45%),
+                    linear-gradient(135deg, #2b3ccf 0%, #2d7bbf 45%, #1cc88a 100%);
+    }
+
+    .auth-container::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 6px);
+        opacity: 0.25;
+        pointer-events: none;
+    }
+
+    .auth-card {
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+    }
+
+    .auth-logo {
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
+        margin-bottom: 6px;
+    }
+
+    .auth-header {
+        padding: 22px 28px 16px;
+        background: linear-gradient(135deg, rgba(23, 37, 84, 0.92), rgba(14, 116, 144, 0.88));
+        position: relative;
+    }
+
+    .auth-header::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .auth-header > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .auth-header h2 {
+        margin-top: 6px;
+        letter-spacing: 0.5px;
+    }
+
+    .auth-header p {
+        margin-top: 4px;
+        opacity: 0.95;
+    }
+
+    .auth-body {
+        padding: 26px 30px 30px;
+        background: rgba(255, 255, 255, 0.96);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #2563eb 0%, #12b981 100%);
+    }
+
+    .btn-primary:hover {
+        box-shadow: 0 12px 25px rgba(18, 185, 129, 0.35);
+    }
+</style>
+{% endblock %}
+
+{% block auth_content %}
+<div class="auth-card">
+    <div class="auth-header">
+        <img class="auth-logo" src="{{ url_for('serve_img', filename='logo.png') }}" alt="Logo Kasir">
+        <h2>KASIR TOKO SEMBAKO</h2>
+        <p>Sistem Manajemen Penjualan Modern</p>
+    </div>
+    
+    <div class="auth-body">
+        <form method="POST" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    {{ form.username(class="form-control", placeholder="Masukkan username") }}
+                </div>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    {{ form.password(class="form-control", placeholder="Masukkan password") }}
+                </div>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <div class="text-danger small mt-1">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </div>
+        </form>
+        
+        <div class="footer-text">
+            <p class="mb-0">&copy; 2026 Kasir Toko Sembako v1.0</p>
+            <small>Developed with <i class="fas fa-heart text-danger"></i> by Indra Lavansa</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

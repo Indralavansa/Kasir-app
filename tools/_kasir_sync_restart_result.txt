@@ -1,0 +1,107 @@
+timestamp: 2026-02-20T01:54:09
+host: 192.168.1.25
+remote_root: /DATA/lost+found/kasir-app
+local_root: d:/connect casa os/Connect to Telegram Fitur Komplit - Copy
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app/app_simple.py
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/app/telegram_bot.py
+SYNC_OK: requirements.txt -> /DATA/lost+found/kasir-app/requirements.txt
+SYNC_OK: docker-compose.yml -> /DATA/lost+found/kasir-app/docker-compose.yml
+SYNC_OK: .env -> /DATA/lost+found/kasir-app/.env
+SYNC_OK: telegram_bot.py -> /DATA/lost+found/kasir-app/telegram_bot.py
+SYNC_OK: app_simple.py -> /DATA/lost+found/kasir-app/app_simple.py
+
+## compose_down (exit=0)
+ERR:
+time="2026-02-20T02:54:14+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container kasir-toko-sembako Stopping 
+ Container kasir-toko-sembako Stopped 
+ Container kasir-toko-sembako Removing 
+ Container kasir-toko-sembako Removed 
+ Network kasir-app_kasir-network Removing 
+ Network kasir-app_kasir-network Removed
+
+## compose_up (exit=0)
+__EXIT:0
+time="2026-02-20T02:54:27+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image kasir-toko-sembako:latest Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 526B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 1.03kB 0.0s done
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 2.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#6 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#6 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.3s done
+#6 DONE 0.3s
+
+#5 [internal] load build context
+#5 transferring context: 440.07kB 0.3s done
+#5 DONE 0.5s
+
+#7 [2/7] WORKDIR /app
+#7 CACHED
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [4/7] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [6/7] COPY . .
+#11 DONE 2.9s
+
+#12 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#12 DONE 3.3s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 13.6s done
+#13 exporting manifest sha256:de0bfe34d2b18fdaa95dd25c4879dfc31689d07f84d41937fd2d1434ec5be00c
+#13 exporting manifest sha256:de0bfe34d2b18fdaa95dd25c4879dfc31689d07f84d41937fd2d1434ec5be00c 0.3s done
+#13 exporting config sha256:ea6f95a6ee4f1ae6e566a08ae136a19967d08c8e41981bd5279397eef4104208
+#13 exporting config sha256:ea6f95a6ee4f1ae6e566a08ae136a19967d08c8e41981bd5279397eef4104208 0.3s done
+#13 exporting attestation manifest sha256:d21e95bc8fef5a094c25da57d4056fcae74bed2433bf73f174418c53d67d301e
+#13 exporting attestation manifest sha256:d21e95bc8fef5a094c25da57d4056fcae74bed2433bf73f174418c53d67d301e 0.5s done
+#13 exporting manifest list sha256:091da13fe377fb3b5357e16fdae874545d796db88aceb8446bdad75e19e3cbc2
+#13 exporting manifest list sha256:091da13fe377fb3b5357e16fdae874545d796db88aceb8446bdad75e19e3cbc2 0.2s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest
+#13 naming to docker.io/library/kasir-toko-sembako:latest 0.0s done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 2.2s done
+#13 DONE 17.5s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.1s
+ Image kasir-toko-sembako:latest Built 
+ Network kasir-app_kasir-network Creating 
+ Network kasir-app_kasir-network Created 
+ Container kasir-toko-sembako Creating 
+ Container kasir-toko-sembako Created 
+ Container kasir-toko-sembako Starting 
+ Container kasir-toko-sembako Started
+
+## env_check (exit=0)
+TOKEN_LEN= 46
+ADMIN_SET= True
+
+## ps (exit=0)
+kasir-toko-sembako|Up 2 seconds (health: starting)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+result: ok

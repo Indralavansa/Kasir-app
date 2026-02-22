@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struk {{ transaksi.kode_transaksi }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            /* Perkecil margin halaman supaya jarak atas tidak terlalu jauh */
+            margin: 0;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+                line-height: 1.2;
+            }
+            
+            .struk-container {
+                /* Sesuai dengan kertas struk 58mm */
+                width: 44mm;
+                margin: -6mm auto 0 auto; /* tarik sedikit ke atas, rapatkan ke tepi kertas */
+                padding: 2mm 2mm;
+                border: none !important;
+            }
+        }
+        
+        @media screen {
+            body {
+                background: #f5f5f5;
+                padding: 20px;
+            }
+        }
+        
+        .struk-container {
+            max-width: 60mm;
+            margin: 10px auto;
+            padding: 8px 10px;
+            border: 2px solid #ddd;
+            /* Stack font monospace yang umumnya tajam di printer thermal */
+            font-family: Consolas, "Lucida Console", "Courier New", monospace;
+            font-weight: 5000;
+            background: white;
+            font-size: 0.90rem;
+            line-height: 1.30;
+            letter-spacing: 0.3px;
+        }
+        
+        .struk-header {
+            text-align: center;
+            border-bottom: 2px dashed #333;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+        
+        .struk-header div {
+            font-size: 0.78rem;
+            line-height: 1.1;
+            margin-bottom: 0.5px;
+            font-weight: 700;
+        }
+        
+        .struk-header h3 {
+            margin: 0 0 3px 0;
+            font-size: 1.05rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+        
+        .struk-info {
+            margin-bottom: 4px;
+            font-size: 0.78rem;
+            line-height: 1.15;
+            font-weight: 700;
+        }
+        
+        .struk-info div {
+            margin-bottom: 1px;
+        }
+        
+        .struk-items {
+            border-top: 1px dashed #333;
+            border-bottom: 1px dashed #333;
+            padding: 4px 0;
+            margin-bottom: 4px;
+            font-size: 0.78rem;
+            line-height: 1.2;
+        }
+        
+        .struk-item {
+            margin-bottom: 2px;
+        }
+        
+        .struk-item-name {
+            font-weight: 900;
+            word-wrap: break-word;
+        }
+        
+        .struk-item-detail {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 3px;
+            font-size: 0.76rem;
+            margin-top: 0px;
+            font-weight: 700;
+        }
+        
+        .struk-total {
+            border-top: 2px solid #333;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-weight: 900;
+            font-size: 0.82rem;
+            line-height: 1.25;
+        }
+        
+        .struk-total div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+        
+        .struk-footer {
+            text-align: center;
+            margin-top: 3px;
+            padding-top: 2px;
+            padding-bottom: 1px;
+            border-top: 2px dashed #333;
+            font-size: 0.75rem;
+            line-height: 1.1;
+            font-weight: 700;
+            min-height: auto;
+        }
+        
+        .btn-actions {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="struk-container">
+        <div class="struk-header">
+            <h3>{{ settings.store_name|upper }}</h3>
+            <div>{{ settings.store_address }}</div>
+            <div>Telp: {{ settings.store_phone }}</div>
+        </div>
+        
+        <div class="struk-info">
+            <div><strong>No:</strong> {{ transaksi.kode_transaksi }}</div>
+            <div><strong>Tgl:</strong> {{ transaksi.tanggal.strftime('%d/%m/%Y %H:%M') }}</div>
+            <div><strong>Kasir:</strong> {{ transaksi.user.nama }}</div>
+            {% if transaksi.member or transaksi.member_manual %}
+            <div><strong>Member:</strong> {{ transaksi.member.nama if transaksi.member else transaksi.member_manual }}</div>
+            {% endif %}
+            <div><strong>Bayar:</strong> {{ transaksi.payment_method|upper }}</div>
+        </div>
+        
+        <div class="struk-items">
+            {% for item in transaksi.items %}
+            <div class="struk-item">
+                <div class="struk-item-name">
+                    {{ item.produk.nama }}
+                    {% if item.varian_nama %}
+                    - {{ item.varian_nama }}
+                    {% endif %}
+                </div>
+                <div class="struk-item-detail">
+                    <span>{{ item.jumlah }}x{{ "{:,.0f}".format(item.harga) }}</span>
+                    <span>{{ "{:,.0f}".format(item.subtotal) }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="struk-total">
+            <div>
+                <span>TOTAL</span>
+                <span>{{ "{:,.0f}".format(transaksi.total) }}</span>
+            </div>
+            <div>
+                <span>BAYAR</span>
+                <span>{{ "{:,.0f}".format(transaksi.bayar) }}</span>
+            </div>
+            <div>
+                <span>KEMBALI</span>
+                <span>{{ "{:,.0f}".format(transaksi.kembalian) }}</span>
+            </div>
+            {% if transaksi.member %}
+            <div>
+                <span>POIN</span>
+                <span>+{{ transaksi.points_earned or 0 }}</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="struk-footer">
+            <div>{{ settings.receipt_footer }}</div>
+        </div>
+    </div>
+    
+    <div class="btn-actions no-print">
+        <button class="btn btn-primary" onclick="window.print()">
+            <i class="fas fa-print me-2"></i>Cetak Struk
+        </button>
+        <a href="{{ url_for('kasir') }}" class="btn btn-success">
+            <i class="fas fa-shopping-cart me-2"></i>Transaksi Baru
+        </a>
+        <a href="{{ url_for('list_transaksi') }}" class="btn btn-secondary">
+            <i class="fas fa-list me-2"></i>Daftar Transaksi
+        </a>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

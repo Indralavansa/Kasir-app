@@ -1,0 +1,70 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Kategori Produk{% endblock %}
+
+{% block extra_css %}
+<style>
+    .kategori-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .kategori-actions form {
+        margin: 0;
+    }
+
+    .kategori-actions .btn {
+        min-width: 36px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4><i class="fas fa-tags me-2"></i>Kategori Produk</h4>
+        <p class="text-muted mb-0">Kelola kategori produk</p>
+    </div>
+    
+    <a href="{{ url_for('tambah_kategori') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Tambah Kategori
+    </a>
+</div>
+
+<div class="row">
+    {% for kategori in kategori_list %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ kategori.nama }}</h5>
+                <p class="card-text text-muted">{{ kategori.deskripsi or 'Tidak ada deskripsi' }}</p>
+                <div class="kategori-actions">
+                    <a href="{{ url_for('kategori_produk', id=kategori.id) }}" class="btn btn-sm btn-info text-white">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{ url_for('edit_kategori', id=kategori.id) }}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form method="POST" action="{{ url_for('hapus_kategori', id=kategori.id) }}" onsubmit="return confirm('Hapus kategori?')">
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <i class="fas fa-tags fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Belum ada kategori</h5>
+            <a href="{{ url_for('tambah_kategori') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Tambah Kategori
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,606 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Laporan Penjualan{% endblock %}
+
+{% block extra_css %}
+<style>
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-bottom: 20px;
+    }
+    
+    html[data-bs-theme="dark"] .card-header.bg-primary,
+    html[data-bs-theme="dark"] .card-header.bg-success,
+    html[data-bs-theme="dark"] .card-header.bg-info,
+    html[data-bs-theme="dark"] .card-header.bg-warning,
+    html[data-bs-theme="dark"] .card-header.bg-danger {
+        color: #f1f5f9 !important;
+    }
+    
+    html[data-bs-theme="dark"] .card-header h5 {
+        color: #f1f5f9;
+        font-weight: 600;
+    }
+    
+    html[data-bs-theme="dark"] .card-body h2 {
+        color: #f1f5f9;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4><i class="fas fa-chart-bar me-2"></i>Laporan Penjualan</h4>
+        <p class="text-muted mb-0">Analisis data penjualan toko</p>
+    </div>
+</div>
+
+<!-- Filter -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Tanggal Mulai</label>
+                <input type="date" name="tanggal_mulai" class="form-control" value="{{ tanggal_mulai }}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Tanggal Selesai</label>
+                <input type="date" name="tanggal_selesai" class="form-control" value="{{ tanggal_selesai }}">
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-filter me-2"></i>Filter
+                </button>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#exportModal">
+                    <i class="fas fa-download me-2"></i>Export Excel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="exportModalLabel"><i class="fas fa-download me-2"></i>Export Laporan Keuangan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="exportForm" method="POST" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="csrf_token" id="exportCsrfToken" value="{{ csrf_token() }}">
+                    <input type="hidden" name="tanggal_mulai" id="exportTanggalMulai" value="{{ tanggal_mulai }}">
+                    <input type="hidden" name="tanggal_selesai" id="exportTanggalSelesai" value="{{ tanggal_selesai }}">
+                    
+                    <div class="mb-3">
+                        <label for="exportMode" class="form-label">Pilih Format Laporan</label>
+                        <select class="form-select" id="exportMode" name="mode">
+                            <option value="hari" selected>Per Hari (Detail Produk)</option>
+                            <option value="bulan">Per Bulan (Blok Harian + Summary)</option>
+                            <option value="tahun">Per Tahun (Summary Bulanan)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="formatInfo" class="alert alert-info">
+                        <strong>Per Hari:</strong> Tabel detail dengan semua produk, jumlah, harga, hpp, dan keuntungan untuk setiap hari.
+                    </div>
+                    
+                    <div id="exportStatus" class="alert alert-warning d-none">
+                        <small id="exportStatusText"></small>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <h6 class="mb-2"><strong>Format Kolom:</strong></h6>
+                        <ul class="small mb-0">
+                            <li><strong>Nama Barang:</strong> Nama produk yang dijual</li>
+                            <li><strong>Jumlah:</strong> Total pengeluaran/penjualan barang</li>
+                            <li><strong>Harga Barang:</strong> Harga jual per unit</li>
+                            <li><strong>Total Pembayaran:</strong> Harga x Jumlah</li>
+                            <li><strong>HPP:</strong> Harga modal/cost per unit</li>
+                            <li><strong>Keuntungan:</strong> (Harga Jual - HPP) x Jumlah</li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="confirmExport">
+                    <i class="fas fa-download me-2"></i>Download Excel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-receipt fa-3x text-primary mb-3"></i>
+                <h2 class="mb-1">{{ total_transaksi }}</h2>
+                <p class="text-muted mb-0">Total Transaksi</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-money-bill-wave fa-3x text-success mb-3"></i>
+                <h2 class="mb-1">Rp {{ "{:,.0f}".format(total_penjualan) }}</h2>
+                <p class="text-muted mb-0">Total Penjualan</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-coins fa-3x text-warning mb-3"></i>
+                <h2 class="mb-1">Rp {{ "{:,.0f}".format(total_keuntungan or 0) }}</h2>
+                <p class="text-muted mb-0">Total Keuntungan</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+{% if transaksi_list %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Tren Penjualan Per Hari</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="salesTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Metode Pembayaran</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top 5 Produk Terlaris</h5>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="topProductsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Top Members -->
+<div class="card mb-4">
+    <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">
+            <i class="fas fa-users me-2"></i>Top 25 MemberShip
+            <small class="ms-2">(Bulan Berjalan)</small>
+        </h5>
+    </div>
+    <div class="card-body">
+        {% if top_members %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Member</th>
+                        <th>Total Transaksi</th>
+                        <th>Total Belanja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in top_members %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ m.nama }}</td>
+                        <td>{{ m.total_transaksi }}</td>
+                        <td>Rp {{ "{:,.0f}".format(m.total_spent) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+            <h6 class="text-muted mb-0">Belum ada data member pada periode ini</h6>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Detail Transaksi -->
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Detail Transaksi</h5>
+    </div>
+    <div class="card-body">
+        {% if transaksi_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
+                        <th>Kasir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaksi in transaksi_list %}
+                    <tr>
+                        <td>{{ transaksi.kode_transaksi }}</td>
+                        <td>{{ transaksi.tanggal.strftime('%d-%m-%Y %H:%M') }}</td>
+                        <td>Rp {{ "{:,.0f}".format(transaksi.total) }}</td>
+                        <td>{{ transaksi.user.nama }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-chart-line fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Tidak ada data transaksi</h5>
+            <p class="text-muted">Ubah filter tanggal atau buat transaksi baru</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if transaksi_list %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    const isDarkMode = () => document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    const chartTextColor = () => (isDarkMode() ? '#e2e8f0' : '#212529');
+    const chartGridColor = () => (isDarkMode() ? 'rgba(148, 163, 184, 0.2)' : 'rgba(0, 0, 0, 0.1)');
+    
+    // Set Chart.js default color
+    Chart.defaults.color = chartTextColor();
+    Chart.defaults.borderColor = chartGridColor();
+
+    // Sales Trend Chart
+    const salesData = {{ sales_by_date|tojson }};
+    const salesLabels = Object.keys(salesData).sort();
+    const salesValues = salesLabels.map(date => salesData[date]);
+    
+    new Chart(document.getElementById('salesTrendChart'), {
+        type: 'line',
+        data: {
+            labels: salesLabels.map(date => {
+                const d = new Date(date);
+                return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+            }),
+            datasets: [{
+                label: 'Penjualan (Rp)',
+                data: salesValues,
+                borderColor: '#4361ee',
+                backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: chartGridColor()
+                    },
+                    title: {
+                        display: true,
+                        color: chartTextColor()
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 12
+                        },
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
+                    grid: {
+                        color: chartGridColor()
+                    },
+                    title: {
+                        display: true,
+                        color: chartTextColor()
+                    }
+                }
+            }
+        }
+    });
+    
+    // Payment Method Chart
+    const paymentData = {{ payment_count|tojson }};
+    const paymentLabels = Object.keys(paymentData);
+    const paymentValues = Object.values(paymentData);
+    
+    const paymentColors = {
+        'tunai': '#28a745',
+        'qris': '#007bff',
+        'ewallet': '#17a2b8',
+        'debit': '#ffc107',
+        'hutang': '#dc3545'
+    };
+    
+    new Chart(document.getElementById('paymentChart'), {
+        type: 'doughnut',
+        data: {
+            labels: paymentLabels.map(m => m.charAt(0).toUpperCase() + m.slice(1)),
+            datasets: [{
+                data: paymentValues,
+                backgroundColor: paymentLabels.map(m => paymentColors[m] || '#6c757d')
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 12,
+                            weight: 'bold'
+                        },
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    titleColor: chartTextColor(),
+                    bodyColor: chartTextColor(),
+                    backgroundColor: isDarkMode() ? 'rgba(31, 41, 55, 0.8)' : 'rgba(0, 0, 0, 0.8)'
+                }
+            }
+        }
+    });
+    
+    // Top Products Chart
+    const topProducts = {{ top_products|tojson }};
+    const productLabels = topProducts.map(p => p[0]);
+    const productValues = topProducts.map(p => p[1]);
+    
+    new Chart(document.getElementById('topProductsChart'), {
+        type: 'bar',
+        data: {
+            labels: productLabels,
+            datasets: [{
+                label: 'Total Penjualan (Rp)',
+                data: productValues,
+                backgroundColor: [
+                    '#28a745',
+                    '#007bff',
+                    '#ffc107',
+                    '#dc3545',
+                    '#17a2b8'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    titleColor: chartTextColor(),
+                    bodyColor: chartTextColor(),
+                    backgroundColor: isDarkMode() ? 'rgba(31, 41, 55, 0.8)' : 'rgba(0, 0, 0, 0.8)'
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 12
+                        },
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
+                        }
+                    },
+                    grid: {
+                        color: chartGridColor()
+                    },
+                    title: {
+                        display: true,
+                        color: chartTextColor()
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: chartTextColor(),
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: chartGridColor()
+                    },
+                    title: {
+                        display: true,
+                        color: chartTextColor()
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endif %}
+
+<!-- Export Modal Script -->
+<script>
+// Update format info based on selected mode
+const exportModeSelect = document.getElementById('exportMode');
+const formatInfo = document.getElementById('formatInfo');
+
+const modeDescriptions = {
+    'hari': `
+        <strong>Per Hari:</strong> Tabel detail dengan semua produk yang dijual setiap hari.
+        <br><small class="text-muted">Kolom: Nama Barang | Jumlah | Harga Barang | Total Pembayaran | HPP | Keuntungan</small>
+        <br><small class="text-muted">+ Total setiap hari | Grand Total semua hari</small>
+    `,
+    'bulan': `
+        <strong>Per Bulan:</strong> Blok harian dengan detail produk + summary bulanan.
+        <br><small class="text-muted">Menampilkan: Detail per-hari | Total harian | Summary per bulan | Grand total bulan</small>
+    `,
+    'tahun': `
+        <strong>Per Tahun:</strong> Tabel ringkasan per bulan dalam setahun.
+        <br><small class="text-muted">Kolom: Bulan | Total Pembayaran | Total HPP | Total Keuntungan</small>
+        <br><small class="text-muted">+ Total tahun keseluruhan</small>
+    `
+};
+
+exportModeSelect.addEventListener('change', function() {
+    formatInfo.innerHTML = modeDescriptions[this.value];
+});
+
+// Handle confirm export - using fetch for better error handling
+document.getElementById('confirmExport').addEventListener('click', async function() {
+    const btn = this;
+    const statusDiv = document.getElementById('exportStatus');
+    const statusText = document.getElementById('exportStatusText');
+    
+    try {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
+        statusDiv.classList.add('d-none');
+        
+        // Update hidden fields with current filter values
+        document.getElementById('exportTanggalMulai').value = document.querySelector('input[name="tanggal_mulai"]').value;
+        document.getElementById('exportTanggalSelesai').value = document.querySelector('input[name="tanggal_selesai"]').value;
+        
+        // Prepare form data
+        const formData = new FormData(document.getElementById('exportForm'));
+        
+        console.log('Sending export request with:', {
+            tanggal_mulai: formData.get('tanggal_mulai'),
+            tanggal_selesai: formData.get('tanggal_selesai'),
+            mode: formData.get('mode')
+        });
+        
+        // Submit with fetch
+        const response = await fetch('{{ url_for("export_laporan_excel") }}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (response.ok) {
+            // Check content type
+            const contentType = response.headers.get('content-type');
+            console.log('Content-Type:', contentType);
+            
+            if (contentType && contentType.includes('spreadsheet')) {
+                // Get filename from header if available
+                const disposition = response.headers.get('content-disposition');
+                let filename = 'laporan_keuangan.xlsx';
+                if (disposition) {
+                    const filenameMatch = disposition.match(/filename="([^"]+)"/);
+                    if (filenameMatch) filename = filenameMatch[1];
+                }
+                
+                // Download file
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('exportModal'));
+                modal.hide();
+                
+                btn.innerHTML = '<i class="fas fa-download me-2"></i>Download Excel';
+                btn.disabled = false;
+            } else {
+                // Got HTML error response
+                const text = await response.text();
+                console.error('Got HTML response instead of Excel:', text.substring(0, 200));
+                throw new Error('Server returned HTML instead of Excel file. Check if you are still logged in.');
+            }
+        } else if (response.status === 400) {
+            const data = await response.json();
+            throw new Error(`Bad request: ${data.error || 'Invalid parameters'}`);
+        } else if (response.status === 403) {
+            throw new Error('Unauthorized: Only admin can export reports');
+        } else if (response.status === 500) {
+            const data = await response.json();
+            throw new Error(`Server error: ${data.error || 'Unknown error'}`);
+        } else {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+    } catch (error) {
+        console.error('Export error:', error);
+        statusText.textContent = error.message || 'An error occurred';
+        statusDiv.classList.remove('d-none');
+        btn.innerHTML = '<i class="fas fa-download me-2"></i>Download Excel';
+        btn.disabled = false;
+    }
+});
+</script>
+{% endblock %}

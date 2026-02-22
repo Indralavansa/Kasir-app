@@ -1,0 +1,53 @@
+timestamp: 2026-02-19T23:17:07
+
+## hit_app (exit=0)
+HIT_OK
+
+## check_telegram_available (exit=0)
+telegram_bot_import_ok
+
+## logs_tail (exit=0)
+============================================================
+KASIR TOKO SEMBAKO - WITH SIMPLE BACKUP SYSTEM
+============================================================
+[TIME] Local System Time: 2026-02-19 16:16:55
+[TIME] Detected Timezone: UTC+0
+============================================================
+ * Serving Flask app 'app.app_simple:app'
+ * Debug mode: off
+✅ Telegram Bot started (auto)
+ERR:
+2026-02-19 16:16:56,121 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2026-02-19 16:16:56,122 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-19 16:16:56,210 - app.telegram_bot - INFO - 🤖 Telegram Bot thread started
+2026-02-19 16:16:56,213 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:16:56] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:16:56,446 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:16:56] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:16:56,451 - app.telegram_bot - INFO - 🤖 Telegram Bot started successfully!
+2026-02-19 16:16:56,453 - app.telegram_bot - ERROR - Failed to start Telegram bot: set_wakeup_fd only works in main thread of the main interpreter
+/app/app/telegram_bot.py:514: RuntimeWarning: coroutine 'Updater.start_polling' was never awaited
+  logger.error(f"Failed to start Telegram bot: {e}")
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+2026-02-19 16:17:10,856 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:17:10] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:17:10,878 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:17:10] "GET /login HTTP/1.1" 200 -
+
+## logs_telegram_grep (exit=0)
+✅ Telegram Bot started (auto)
+ERR:
+2026-02-19 16:16:56,121 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2026-02-19 16:16:56,122 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-19 16:16:56,210 - app.telegram_bot - INFO - 🤖 Telegram Bot thread started
+2026-02-19 16:16:56,213 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:16:56] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:16:56,446 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:16:56] "GET /login HTTP/1.1" 200 -
+2026-02-19 16:16:56,451 - app.telegram_bot - INFO - 🤖 Telegram Bot started successfully!
+2026-02-19 16:16:56,453 - app.telegram_bot - ERROR - Failed to start Telegram bot: set_wakeup_fd only works in main thread of the main interpreter
+/app/app/telegram_bot.py:514: RuntimeWarning: coroutine 'Updater.start_polling' was never awaited
+  logger.error(f"Failed to start Telegram bot: {e}")
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+2026-02-19 16:17:10,856 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:17:10] "[32mGET / HTTP/1.1[0m" 302 -
+2026-02-19 16:17:10,878 - werkzeug - INFO - 127.0.0.1 - - [19/Feb/2026 16:17:10] "GET /login HTTP/1.1" 200 -

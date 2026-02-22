@@ -1,0 +1,20 @@
+timestamp: 2026-02-19T23:56:19
+
+## df_root (exit=0)
+Filesystem                                                     Size  Used Avail Use% Mounted on
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  59% /
+/dev/mmcblk2p2                                                 6.5G  3.9G  2.7G  59% /
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9  694G  3.9G  683G   1% /DATA
+
+## docker_root (exit=0)
+/var/lib/docker
+
+## docker_system_df (exit=0)
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         1         1.262GB   1.262GB (100%)
+Containers      1         1         1.253MB   0B (0%)
+Local Volumes   1         0         0B        0B
+Build Cache     13        0         820.7MB   27.77MB
+
+## images (exit=0)
+kasir-toko-sembako:latest 792MB

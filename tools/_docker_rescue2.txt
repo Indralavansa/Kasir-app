@@ -1,0 +1,133 @@
+timestamp: 2026-02-20T00:06:49
+host: 192.168.1.25
+
+## list_backups (exit=0)
+drwx--x--- 11 root          root          4096 Feb 18 21:17 docker
+/var/lib/docker
+
+## show_daemon_json (exit=0)
+{
+  data-root: /var/lib/docker
+}
+
+## restore_varlib (exit=0)
+docker_dir_ok
+
+## write_daemon_json_recover (exit=0)
+{
+  data-root: /var/lib/docker
+}
+
+## start_docker (exit=1)
+ERR:
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+
+## docker_service (exit=0)
+× docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/docker.service.d
+             └─override.conf
+     Active: failed (Result: exit-code) since Fri 2026-02-20 01:06:46 CST; 14s ago
+   Duration: 1d 3h 44min 30.917s
+TriggeredBy: × docker.socket
+       Docs: https://docs.docker.com
+    Process: 309292 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock (code=exited, status=1/FAILURE)
+   Main PID: 309292 (code=exited, status=1/FAILURE)
+        CPU: 256ms
+
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+
+## docker_journal (exit=0)
+Feb 20 01:02:06 tvbox-dbai systemd[1]: docker.service: Deactivated successfully.
+Feb 20 01:02:06 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:03:16 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:03:17 tvbox-dbai dockerd[307739]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:03:17 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:03:17 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:03:17 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:03:20 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+Feb 20 01:03:20 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:03:20 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:03:21 tvbox-dbai dockerd[307764]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:03:21 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:03:21 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:03:21 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:03:23 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+Feb 20 01:03:23 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:03:23 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:03:23 tvbox-dbai dockerd[307784]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:03:23 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:03:23 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:03:23 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:03:25 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Feb 20 01:03:25 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:03:25 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:03:25 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:03:25 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:06 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:06 tvbox-dbai dockerd[308503]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:06 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:06 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:06 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:10 tvbox-dbai dockerd[308529]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:12 tvbox-dbai dockerd[308539]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:37 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:37 tvbox-dbai dockerd[309248]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:37 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:37 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:37 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:41 tvbox-dbai dockerd[309272]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:43 tvbox-dbai dockerd[309292]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+
+## docker_ps (exit=0)
+ERR:
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Riwayat Member{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4><i class="fas fa-receipt me-2"></i>Riwayat Member</h4>
+        <p class="text-muted mb-0">{{ member.nama }} • Level {{ member.get_level() }} • Poin {{ member.points or 0 }}</p>
+    </div>
+    <a href="{{ url_for('list_member') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Kembali
+    </a>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Total Transaksi</div>
+                <div class="h4 mb-0">{{ total_transaksi }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Total Belanja</div>
+                <div class="h4 mb-0">Rp {{ "{:,.0f}".format(total_belanja or 0) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Level Member</div>
+                <div class="h4 mb-0">{{ member.get_level() }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if transaksi_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Tanggal</th>
+                        <th>Subtotal</th>
+                        <th>Total</th>
+                        <th>Poin</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transaksi_list %}
+                    <tr>
+                        <td><strong>{{ t.kode_transaksi }}</strong></td>
+                        <td>{{ t.tanggal.strftime('%d %b %Y %H:%M') }}</td>
+                        <td>Rp {{ "{:,.0f}".format(t.subtotal or 0) }}</td>
+                        <td>Rp {{ "{:,.0f}".format(t.total) }}</td>
+                        <td>{{ t.points_earned or 0 }}</td>
+                        <td>
+                            <a href="{{ url_for('view_struk', id=t.id) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if pagination and pagination.pages > 1 %}
+        <nav aria-label="Pagination Riwayat Member" class="mt-3">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('member_transaksi', id=member.id, page=pagination.prev_num, per_page=pagination.per_page) }}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Hal {{ pagination.page }} / {{ pagination.pages }} ({{ pagination.total }} data)</span>
+                </li>
+                <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('member_transaksi', id=member.id, page=pagination.next_num, per_page=pagination.per_page) }}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-receipt fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Belum ada transaksi</h5>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

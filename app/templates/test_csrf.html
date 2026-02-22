@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Test CSRF{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">CSRF Token Test</h5>
+    </div>
+    <div class="card-body">
+        <p>CSRF Token tersedia: <strong id="csrf-status">Checking...</strong></p>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <p>Token: <code id="token">{{ csrf_token() }}</code></p>
+            <button type="submit" class="btn btn-primary">Test Form</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Check if csrf_token is rendered
+    const token = document.getElementById('token').textContent;
+    const status = document.getElementById('csrf-status');
+    
+    if (token && token.length > 10) {
+        status.textContent = '✓ Available (Token exists)';
+        status.className = 'text-success';
+    } else {
+        status.textContent = '✗ NOT Available';
+        status.className = 'text-danger';
+    }
+</script>
+{% endblock %}

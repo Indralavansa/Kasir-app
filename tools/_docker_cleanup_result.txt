@@ -1,0 +1,199 @@
+timestamp: 2026-02-19T23:22:01
+host: 192.168.1.25
+remote_root: /DATA/lost+found/kasir-app
+
+## docker_df_before (exit=0)
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          4         0         4.021GB   1.054GB (26%)
+Containers      1         0         516.1kB   516.1kB (100%)
+Local Volumes   0         0         0B        0B
+Build Cache     29        0         1.057GB   264MB
+
+## builder_prune (exit=0)
+ID						RECLAIMABLE	SIZE		LAST ACCESSED
+l7g5rx1p76ygubch4fxfnhxqz*              	true 		4.096kB   	About a minute ago
+j138gkoh362os9i9yr96t8563               	true 	8.224kB   	5 minutes ago
+lbzd3z5go18dl9allhzjwnrjx               	true 	8.224kB   	12 minutes ago
+ur9d2lg90tqfuj6iyrov9sgh1               	true 	8.224kB   	9 minutes ago
+5eya7mdfvu8v25dfsibocck8d               	true 	8.224kB   	About a minute ago
+vyio7bjleifhjq1u43zhemw9p               	true 	16.5kB    	4 days ago
+o4y2ii9eu1vnnoxmv0rdw5imy               	true 	20.61kB   	2 hours ago
+sny1mfemciml2utlx39fpf3bq               	true 	8.224kB   	2 hours ago
+lujmu27lfrm8bp7r596qwtsp8               	true 	8.224kB   	2 minutes ago
+ieeo0nz36ufobdd4fhxj6oxsw*              	true 	27.75MB   	About a minute ago
+dj89afz76dp7ea7yil0gws04b               	true 	36.56MB   	2 minutes ago
+ub0ujl9fuzogyczjlu21l7xpu*              	true 	8.192kB   	About a minute ago
+gu4hevx2hai04q1kptzn1uxrg               	true 	36.56MB   	About a minute ago
+ma7f1lhx3bs7kdd94jcyhlxhz               	true 	36.46MB   	5 minutes ago
+xufosq5nd0w055sv9wj3d454l               	true 	872.2kB   	2 hours ago
+cobhdo0qrpbomwmvo898az7xi               	true 	36.45MB   	9 minutes ago
+nkrwijuealmsbtcbopgfdoinl               	true 	863.9kB   	2 hours ago
+1t2a8uplyx96ihktiz2gqori6               	true 	2.231MB   	Less than a second ago
+vy9b1vbh6g8gzuvi4bt2byxi8               	true 	36.45MB   	59 minutes ago
+tulehlbvezfvzgm98eok4atyo               	true 	314.7MB   	About a minute ago
+wem6jgh5fielaaknoqsgpnopw               	true 	86.27MB   	Less than a second ago
+xjko5ql6n24sslrl5x0l33923               	true 	12.59kB   	Less than a second ago
+qkbhqavs82jkojx5wla6na80u               	true 	12.64kB   	2 hours ago
+7cvf8x0wyu3dqsfe0hmbjvcjz               	true 	229.8MB   	Less than a second ago
+otmw4pwbeagafi6rqbno10ei5               	true 	8.285kB   	Less than a second ago
+t296n1xzqboq7q1pgegi0bsx2               	true 	16.64kB   	Less than a second ago
+uiof41mzogahvqjcw87ntd4b7               	true 	65.98MB   	Less than a second ago
+xsfb5jiez0duoe40fk2bfwfah               	true 	6.262MB   	Less than a second ago
+319n6kpi301zk21ijrz03r2lt               	true 	139.5MB   	Less than a second ago
+Total:	1.057GB
+
+## image_prune (exit=0)
+Deleted Images:
+untagged: altran1502/immich-machine-learning:v2.5.3
+deleted: sha256:fa843f76cd34795ce8ca133d2c62ad67aa082b0f90b578ce7878210dcb5ad536
+deleted: sha256:311cd4c9d0d8560b18f894e5e205697e5c5fadbacf0abcfbc8294b2316b2362a
+deleted: sha256:e592aadc57da6bd09719feba19c7d09e523c123a8bd02ebbbc2d0868ef6fdb85
+untagged: redis@sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8
+deleted: sha256:148bb5411c184abd288d9aaed139c98123eeb8824c5d3fce03cf721db58066d8
+deleted: sha256:a2db07d99b2fab70933ea2fac33912a096fadccfdf596d66b49d0db6a5989e7f
+deleted: sha256:3f018cb0abc6724a9134b2977ae3c8f059eeaf79fc1baf3326f58e71e13882e6
+untagged: tensorchord/pgvecto-rs@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+deleted: sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+deleted: sha256:4822ef00ba9dbb79c3b3eb40ab7aa6eb403bc6dba04525d5c104ca0d5ce66e1e
+deleted: sha256:dced7e221b536ec9d1d6c39a1f18de302aa0769f00eb3d712f728f156e7f5c66
+
+Total reclaimed space: 643.7MB
+
+## container_prune (exit=0)
+Deleted Containers:
+91d26d6fdb853385e2c655c5bf51eb143594a57d68cac8b95b68a727aa83974e
+
+Total reclaimed space: 516.1kB
+
+## docker_df_after (exit=0)
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         0         186MB     856B (0%)
+Containers      0         0         0B        0B
+Local Volumes   0         0         0B        0B
+Build Cache     0         0         0B        0B
+
+## compose_build_up (exit=0)
+__EXIT:0
+#10 40.09 Collecting httpcore==1.* (from httpx~=0.26.0->python-telegram-bot==20.8->-r requirements.txt (line 11))
+#10 40.13   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#10 40.24 Collecting sniffio (from httpx~=0.26.0->python-telegram-bot==20.8->-r requirements.txt (line 11))
+#10 40.28   Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+#10 40.47 Collecting h11>=0.16 (from httpcore==1.*->httpx~=0.26.0->python-telegram-bot==20.8->-r requirements.txt (line 11))
+#10 40.50   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#10 42.69 Collecting greenlet>=1 (from sqlalchemy>=2.0.16->Flask-SQLAlchemy==3.1.1->-r requirements.txt (line 2))
+#10 42.73   Downloading greenlet-3.3.1-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl.metadata (3.7 kB)
+#10 42.96 Collecting typing-extensions>=4.6.0 (from sqlalchemy>=2.0.16->Flask-SQLAlchemy==3.1.1->-r requirements.txt (line 2))
+#10 43.00   Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+#10 43.84 Downloading flask-3.0.3-py3-none-any.whl (101 kB)
+#10 43.87    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.7/101.7 kB 5.1 MB/s eta 0:00:00
+#10 43.93 Downloading flask_sqlalchemy-3.1.1-py3-none-any.whl (25 kB)
+#10 43.97 Downloading Flask_Login-0.6.3-py3-none-any.whl (17 kB)
+#10 44.01 Downloading flask_wtf-1.2.1-py3-none-any.whl (12 kB)
+#10 44.06 Downloading wtforms-3.1.2-py3-none-any.whl (145 kB)
+#10 44.11    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 146.0/146.0 kB 3.8 MB/s eta 0:00:00
+#10 44.16 Downloading python_dotenv-1.0.1-py3-none-any.whl (19 kB)
+#10 44.20 Downloading werkzeug-3.0.4-py3-none-any.whl (227 kB)
+#10 44.62    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 227.6/227.6 kB 559.0 kB/s eta 0:00:00
+#10 44.66 Downloading bleach-6.0.0-py3-none-any.whl (162 kB)
+#10 44.72    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 162.5/162.5 kB 4.4 MB/s eta 0:00:00
+#10 44.76 Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+#10 44.85    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 3.9 MB/s eta 0:00:00
+#10 44.89 Downloading openpyxl-3.1.2-py2.py3-none-any.whl (249 kB)
+#10 44.97    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 250.0/250.0 kB 4.1 MB/s eta 0:00:00
+#10 45.02 Downloading python_telegram_bot-20.8-py3-none-any.whl (604 kB)
+#10 45.26    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 604.9/604.9 kB 2.7 MB/s eta 0:00:00
+#10 45.31 Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#10 45.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 7.1 MB/s eta 0:00:00
+#10 45.38 Downloading APScheduler-3.10.4-py3-none-any.whl (59 kB)
+#10 45.40    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.3/59.3 kB 15.0 MB/s eta 0:00:00
+#10 45.45 Downloading matplotlib-3.8.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (11.4 MB)
+#10 49.31    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.4/11.4 MB 3.0 MB/s eta 0:00:00
+#10 49.36 Downloading reportlab-4.0.7-py3-none-any.whl (1.9 MB)
+#10 49.93    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 3.5 MB/s eta 0:00:00
+#10 49.97 Downloading cachetools-5.3.2-py3-none-any.whl (9.3 kB)
+#10 50.02 Downloading Pillow-10.1.0-cp311-cp311-manylinux_2_28_aarch64.whl (3.5 MB)
+#10 50.70    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 5.2 MB/s eta 0:00:00
+#10 50.74 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#10 50.79 Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+#10 50.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 152.9/152.9 kB 9.6 MB/s eta 0:00:00
+#10 50.87 Downloading charset_normalizer-3.4.4-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (147 kB)
+#10 50.90    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 147.3/147.3 kB 9.2 MB/s eta 0:00:00
+#10 50.95 Downloading click-8.3.1-py3-none-any.whl (108 kB)
+#10 50.98    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.3/108.3 kB 4.1 MB/s eta 0:00:00
+#10 51.03 Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl (329 kB)
+#10 51.14    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 329.2/329.2 kB 3.5 MB/s eta 0:00:00
+#10 51.18 Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+#10 51.23 Downloading fonttools-4.61.1-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (5.1 MB)
+#10 52.86    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 3.2 MB/s eta 0:00:00
+#10 52.91 Downloading httpx-0.26.0-py3-none-any.whl (75 kB)
+#10 52.93    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 75.9/75.9 kB 5.9 MB/s eta 0:00:00
+#10 52.99 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#10 53.01    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 kB 6.1 MB/s eta 0:00:00
+#10 53.06 Downloading idna-3.11-py3-none-any.whl (71 kB)
+#10 53.08    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.0/71.0 kB 8.4 MB/s eta 0:00:00
+#10 53.14 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#10 53.18 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#10 53.23    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 4.6 MB/s eta 0:00:00
+#10 53.28 Downloading kiwisolver-1.4.9-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (1.2 MB)
+#10 53.55    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 5.0 MB/s eta 0:00:00
+#10 53.59 Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (24 kB)
+#10 53.63 Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (14.2 MB)
+#10 56.88    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.2/14.2 MB 4.2 MB/s eta 0:00:00
+#10 56.92 Downloading packaging-26.0-py3-none-any.whl (74 kB)
+#10 56.94    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.4/74.4 kB 14.9 MB/s eta 0:00:00
+#10 56.98 Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+#10 57.01    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.8/122.8 kB 12.5 MB/s eta 0:00:00
+#10 57.05 Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+#10 57.10 Downloading sqlalchemy-2.0.46-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (3.3 MB)
+#10 57.70    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 5.7 MB/s eta 0:00:00
+#10 57.74 Downloading tzlocal-5.3.1-py3-none-any.whl (18 kB)
+#10 57.80 Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+#10 57.83    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 kB 13.3 MB/s eta 0:00:00
+#10 57.87 Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+#10 57.91 Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+#10 58.01    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 509.2/509.2 kB 6.2 MB/s eta 0:00:00
+#10 58.05 Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+#10 58.10 Downloading greenlet-3.3.1-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl (577 kB)
+#10 58.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 577.2/577.2 kB 6.6 MB/s eta 0:00:00
+#10 58.24 Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+#10 58.26    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 15.4 MB/s eta 0:00:00
+#10 58.30 Downloading anyio-4.12.1-py3-none-any.whl (113 kB)
+#10 58.33    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 113.6/113.6 kB 13.8 MB/s eta 0:00:00
+#10 58.37 Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+#10 58.41 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#10 61.36 Installing collected packages: webencodings, pytz, urllib3, tzlocal, typing-extensions, sniffio, six, python-dotenv, pyparsing, Pillow, packaging, numpy, markupsafe, kiwisolver, itsdangerous, idna, h11, greenlet, fonttools, et-xmlfile, cycler, click, charset-normalizer, certifi, cachetools, blinker, WTForms, werkzeug, sqlalchemy, requests, reportlab, python-dateutil, openpyxl, Jinja2, httpcore, contourpy, bleach, APScheduler, anyio, matplotlib, httpx, Flask, python-telegram-bot, Flask-WTF, Flask-SQLAlchemy, Flask-Login
+#10 127.6 Successfully installed APScheduler-3.10.4 Flask-3.0.3 Flask-Login-0.6.3 Flask-SQLAlchemy-3.1.1 Flask-WTF-1.2.1 Jinja2-3.1.6 Pillow-10.1.0 WTForms-3.1.2 anyio-4.12.1 bleach-6.0.0 blinker-1.9.0 cachetools-5.3.2 certifi-2026.1.4 charset-normalizer-3.4.4 click-8.3.1 contourpy-1.3.3 cycler-0.12.1 et-xmlfile-2.0.0 fonttools-4.61.1 greenlet-3.3.1 h11-0.16.0 httpcore-1.0.9 httpx-0.26.0 idna-3.11 itsdangerous-2.2.0 kiwisolver-1.4.9 markupsafe-3.0.3 matplotlib-3.8.2 numpy-1.26.4 openpyxl-3.1.2 packaging-26.0 pyparsing-3.3.2 python-dateutil-2.8.2 python-dotenv-1.0.1 python-telegram-bot-20.8 pytz-2025.2 reportlab-4.0.7 requests-2.31.0 six-1.17.0 sniffio-1.3.1 sqlalchemy-2.0.46 typing-extensions-4.15.0 tzlocal-5.3.1 urllib3-2.6.3 webencodings-0.5.1 werkzeug-3.0.4
+#10 127.6 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#10 128.4 
+#10 128.4 [notice] A new release of pip is available: 24.0 -> 26.0.1
+#10 128.4 [notice] To update, run: pip install --upgrade pip
+#10 DONE 132.2s
+
+#11 [6/7] COPY . .
+#11 DONE 2.8s
+
+#12 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#12 DONE 0.7s
+
+#13 exporting to image
+#13 exporting layers
+#13 exporting layers 77.0s done
+#13 exporting manifest sha256:d7fc59f32660737716ad6d58ee22f7f890c8ab79522eb855c863d77dcd821e93 0.0s done
+#13 exporting config sha256:758a99fd4dc58d03847517bc033b7fc87d796474a4dbf854cd803b995ee0c2a9 0.0s done
+#13 exporting attestation manifest sha256:3385a666900d9d3f50925b0706e2ac7a9ff325f8fbb50f28d29ca87a62098f07 0.1s done
+#13 exporting manifest list sha256:140059fe2a71f62bdde10461056612ec10159d6c96a61b6e83d021e1d7fa4941 0.0s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 33.5s done
+#13 DONE 110.8s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.1s
+ Image kasir-toko-sembako:latest Built 
+ Container kasir-toko-sembako Creating 
+ Container kasir-toko-sembako Created 
+ Container kasir-toko-sembako Starting 
+ Container kasir-toko-sembako Started
+
+## ps (exit=0)
+kasir-toko-sembako|Up Less than a second (health: starting)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp

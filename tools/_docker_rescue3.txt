@@ -1,0 +1,132 @@
+timestamp: 2026-02-20T00:09:12
+host: 192.168.1.25
+
+## list_backups (exit=0)
+drwx--x--- 11 root          root          4096 Feb 18 21:17 docker
+/var/lib/docker
+
+## show_daemon_json (exit=0)
+{
+  data-root: /var/lib/docker
+}
+
+## restore_varlib (exit=0)
+docker_dir_ok
+
+## write_daemon_json_recover (exit=0)
+{
+  "data-root": "/var/lib/docker"
+}
+
+## start_docker (exit=0)
+/var/lib/docker
+
+## docker_service (exit=0)
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/docker.service.d
+             └─override.conf
+     Active: active (running) since Fri 2026-02-20 01:09:29 CST; 3s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 310673 (dockerd)
+      Tasks: 11
+     Memory: 33.7M
+        CPU: 3.810s
+     CGroup: /system.slice/docker.service
+             └─310673 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Feb 20 01:09:28 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:28.798338093+08:00" level=info msg="Removing stale sandbox" cid=612aa0d80432 isRestore=false sid=2e031f3fb0b1
+Feb 20 01:09:28 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:28.891376387+08:00" level=warning msg="Failed deleting service host entries to the running container: open : no such file or directory"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.275194994+08:00" level=warning msg="error locating sandbox id 2e031f3fb0b14256d4068f15adeb2ec22d2f0e5bd7816a36195ed50bf3d48b18: sandbox 2e031f3fb0b14256d4068f15adeb2ec22d2f0e5bd7816a36195ed50bf3d48b18 not found"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.275858954+08:00" level=info msg="Loading containers: done."
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.312740337+08:00" level=info msg="Docker daemon" commit=6bc6209 containerd-snapshotter=true storage-driver=overlayfs version=29.2.1
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.313096046+08:00" level=info msg="Initializing buildkit"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.433503127+08:00" level=info msg="Completed buildkit initialization"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.505163350+08:00" level=info msg="Daemon has completed initialization"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.505442392+08:00" level=info msg="API listen on /run/docker.sock"
+Feb 20 01:09:29 tvbox-dbai systemd[1]: Started docker.service - Docker Application Container Engine.
+
+## docker_journal (exit=0)
+Feb 20 01:05:06 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:06 tvbox-dbai dockerd[308503]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:06 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:06 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:06 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:10 tvbox-dbai dockerd[308529]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:10 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:10 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:05:12 tvbox-dbai dockerd[308539]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:05:12 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:12 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:05:14 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:37 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:37 tvbox-dbai dockerd[309248]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:37 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:37 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:37 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 1.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:41 tvbox-dbai dockerd[309272]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:41 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:41 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 2.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:06:43 tvbox-dbai dockerd[309292]: unable to configure the Docker daemon with file /etc/docker/daemon.json: invalid character 'd' looking for beginning of object key string
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Feb 20 01:06:43 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:43 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Stopped docker.service - Docker Application Container Engine.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:46 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:53 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Start request repeated too quickly.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: docker.service: Failed with result 'exit-code'.
+Feb 20 01:06:57 tvbox-dbai systemd[1]: Failed to start docker.service - Docker Application Container Engine.
+Feb 20 01:09:16 tvbox-dbai systemd[1]: Starting docker.service - Docker Application Container Engine...
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.203574513+08:00" level=info msg="Starting up"
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.209364688+08:00" level=info msg="OTEL tracing is not configured, using no-op tracer provider"
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.210733648+08:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/etc/cdi
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.210862606+08:00" level=info msg="CDI directory does not exist, skipping: failed to monitor for changes: no such file or directory" dir=/var/run/cdi
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.212299942+08:00" level=info msg="detected 127.0.0.53 nameserver, assuming systemd-resolved, so using resolv.conf: /run/systemd/resolve/resolv.conf"
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.261625676+08:00" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.278991116+08:00" level=info msg="Loading containers: start."
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.287812003+08:00" level=info msg="NRI is disabled"
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.287954878+08:00" level=info msg="Starting daemon with containerd snapshotter integration enabled"
+Feb 20 01:09:16 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:16.296553640+08:00" level=info msg="Restoring containers: start."
+Feb 20 01:09:26 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:26.389859844+08:00" level=info msg="Container failed to exit within 10s of signal 15 - using the force" container=612aa0d804325be101be8ef95ac34e4969999d1792b2ac48fe0782a20f2bbff5
+Feb 20 01:09:26 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:26.601201258+08:00" level=info msg="ignoring event" container=612aa0d804325be101be8ef95ac34e4969999d1792b2ac48fe0782a20f2bbff5 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Feb 20 01:09:26 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:26.663722052+08:00" level=warning msg="ShouldRestart failed, container will not be restarted" container=612aa0d804325be101be8ef95ac34e4969999d1792b2ac48fe0782a20f2bbff5 daemonShuttingDown=false error="restart canceled" execDuration=41m29.648198676s exitStatus="{137 2026-02-19 17:09:26.537850213 +0000 UTC}" hasBeenManuallyStopped=true restartCount=0
+Feb 20 01:09:27 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:27.082624249+08:00" level=info msg="Deleting nftables IPv4 rules" error="exit status 1"
+Feb 20 01:09:27 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:27.131044982+08:00" level=info msg="Deleting nftables IPv6 rules" error="exit status 1"
+Feb 20 01:09:28 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:28.798338093+08:00" level=info msg="Removing stale sandbox" cid=612aa0d80432 isRestore=false sid=2e031f3fb0b1
+Feb 20 01:09:28 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:28.891376387+08:00" level=warning msg="Failed deleting service host entries to the running container: open : no such file or directory"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.275194994+08:00" level=warning msg="error locating sandbox id 2e031f3fb0b14256d4068f15adeb2ec22d2f0e5bd7816a36195ed50bf3d48b18: sandbox 2e031f3fb0b14256d4068f15adeb2ec22d2f0e5bd7816a36195ed50bf3d48b18 not found"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.275858954+08:00" level=info msg="Loading containers: done."
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.312740337+08:00" level=info msg="Docker daemon" commit=6bc6209 containerd-snapshotter=true storage-driver=overlayfs version=29.2.1
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.313096046+08:00" level=info msg="Initializing buildkit"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.433503127+08:00" level=info msg="Completed buildkit initialization"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.505163350+08:00" level=info msg="Daemon has completed initialization"
+Feb 20 01:09:29 tvbox-dbai dockerd[310673]: time="2026-02-20T01:09:29.505442392+08:00" level=info msg="API listen on /run/docker.sock"
+Feb 20 01:09:29 tvbox-dbai systemd[1]: Started docker.service - Docker Application Container Engine.
+
+## docker_ps (exit=0)

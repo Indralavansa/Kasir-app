@@ -1,0 +1,172 @@
+timestamp: 2026-02-19T22:21:49
+
+target: root@192.168.1.25:22
+
+remote_root: /DATA/lost+found/kasir-app
+
+
+## stop_port_5000 (exit=2)
+sh -lc 'ids=$(docker ps --filter publish=5000 --format \'{{.ID}}\'); echo ids:$ids; if [ -n "$ids" ]; then docker stop $ids && docker rm $ids; fi'
+
+ERR:
+bash: -c: line 1: syntax error near unexpected token `)'
+bash: -c: line 1: `sh -lc 'ids=$(docker ps --filter publish=5000 --format \'{{.ID}}\'); echo ids:$ids; if [ -n "$ids" ]; then docker stop $ids && docker rm $ids; fi''
+
+
+## compose_down (exit=0)
+sh -lc 'cd /DATA/lost+found/kasir-app 2>/dev/null && (docker-compose down --remove-orphans 2>/dev/null || docker compose down --remove-orphans 2>/dev/null) || true'
+
+ERR:
+tput: No value for $TERM and no -T specified
+sh: 35: [[: not found
+
+
+## compose_up (exit=1)
+sh -lc 'cd /DATA/lost+found/kasir-app && (docker-compose up -d --build || docker compose up -d --build)'
+#1 [internal] load local bake definitions
+#1 reading from stdin 526B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.03kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#6 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.1s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 5.92kB 0.1s done
+#5 DONE 0.1s
+
+#7 [2/7] WORKDIR /app
+#7 CACHED
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [6/7] COPY . .
+#9 CACHED
+
+#10 [4/7] COPY requirements.txt .
+#10 CACHED
+
+#11 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#11 CACHED
+
+#12 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers 0.0s done
+#13 exporting manifest sha256:2b3f3e03f8dd01b9031c91fcf2322da2f000ab16801db1b1c88c99d56b419371 0.0s done
+#13 exporting config sha256:c4100333a9025c4185c983c66b45c8ae556170651d0a3cfff41ad9e142f0cbbf 0.0s done
+#13 exporting attestation manifest sha256:2771b5188bf148cbf3d6c6e62cfa42d8ed5643c1c6e304575dc285a371ec8be4 0.1s done
+#13 exporting manifest list sha256:df86d193b21809b94de18dc6b2904c5879f175acee43467b4af18b432a9e30ae 0.0s done
+#13 naming to docker.io/library/kasir-toko-sembako:latest done
+#13 unpacking to docker.io/library/kasir-toko-sembako:latest 0.1s done
+#13 DONE 0.4s
+
+#14 resolving provenance for metadata file
+#14 DONE 0.0s
+ERR:
+tput: No value for $TERM and no -T specified
+sh: 35: [[: not found
+Building kasir-app
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.03kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 2.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf
+#5 resolve docker.io/library/python:3.11-slim@sha256:0b23cfb7425d065008b778022a17b1551c82f8b4866ee5a7a200084b7e2eafbf 0.1s done
+#5 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 27.35MB 1.1s done
+#4 DONE 1.1s
+
+#6 [4/7] COPY requirements.txt .
+#6 CACHED
+
+#7 [2/7] WORKDIR /app
+#7 CACHED
+
+#8 [3/7] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [5/7] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [6/7] COPY . .
+#10 DONE 2.7s
+
+#11 [7/7] RUN mkdir -p /app/instance /app/backups /app/data /app/img
+#11 DONE 0.8s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 11.0s done
+#12 exporting manifest sha256:c3935e5eac6ab13757e21597db58bdd723b6ba1c181bd3d7fc40cf5f077547d7 0.0s done
+#12 exporting config sha256:00e04017fb9ac805f93a532696b396af2a9c7c736a547bdf51f36dc33886b267 0.0s done
+#12 exporting attestation manifest sha256:13b7749445cec5e21fce716d43537bf4851824b0444794c1175c8326d356550c
+#12 exporting attestation manifest sha256:13b7749445cec5e21fce716d43537bf4851824b0444794c1175c8326d356550c 0.1s done
+#12 exporting manifest list sha256:22900fc0fd770b082a6e4f2b54a47f37c80e548813a2a5b8e32c322babbd48f6 0.0s done
+#12 naming to docker.io/library/kasir-toko-sembako:latest done
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest
+#12 unpacking to docker.io/library/kasir-toko-sembako:latest 1.9s done
+#12 DONE 13.3s
+Creating kasir-toko-sembako ... 
+Host is already in use by another container
+Creating kasir-toko-sembako ... error
+
+ERROR: for kasir-toko-sembako  Cannot start service kasir-app: failed to set up container networking: driver failed programming external connectivity on endpoint kasir-toko-sembako (6a43648cb767d0f661c4217432075a3b94d2a3efec12371ef237becb3c7a766a): Bind for 0.0.0.0:5000 failed: port is already allocated
+
+ERROR: for kasir-app  Cannot start service kasir-app: failed to set up container networking: driver failed programming external connectivity on endpoint kasir-toko-sembako (6a43648cb767d0f661c4217432075a3b94d2a3efec12371ef237becb3c7a766a): Bind for 0.0.0.0:5000 failed: port is already allocated
+Encountered errors while bringing up the project.
+time="2026-02-19T23:22:34+08:00" level=warning msg="/DATA/lost+found/kasir-app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image kasir-toko-sembako:latest Building 
+ Image kasir-toko-sembako:latest Built 
+ Container kasir-toko-sembako Recreate 
+ Container kasir-toko-sembako Recreated 
+ Container kasir-toko-sembako Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint kasir-toko-sembako (a216c466d21eea26193336d12971ccce27d7b01b1d486a8b83b4e25d220a30c9): Bind for 0.0.0.0:5000 failed: port is already allocated
+
+
+## verify_port_5000 (exit=0)
+docker ps --filter publish=5000 --format '{{.Names}}|{{.Status}}|{{.Ports}}' || true
+kasir-toko-sembako-kasir-toko-sembako-1|Up 51 minutes (healthy)|0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
+
+
+## compose_ps (exit=0)
+sh -lc 'cd /DATA/lost+found/kasir-app && (docker-compose ps 2>/dev/null || docker compose ps 2>/dev/null) || true'
+Name                     Command                State     Ports
+----------------------------------------------------------------------
+kasir-toko-sembako   python -m flask run --host ...   Exit 128
+ERR:
+tput: No value for $TERM and no -T specified
+sh: 35: [[: not found
+
+
+result: ok

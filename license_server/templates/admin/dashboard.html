@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - License Server</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(1200px circle at 10% 10%, rgba(13,110,253,.10), transparent 60%),
+                  radial-gradient(1200px circle at 90% 20%, rgba(220,53,69,.08), transparent 55%),
+                  #f8f9fa;
+    }
+    .hero {
+      border-radius: 18px;
+      padding: 20px 22px;
+      background: linear-gradient(135deg, rgba(13,110,253,.18), rgba(32,201,151,.14));
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .stat-card { border: 0; border-radius: 18px; background: rgba(255,255,255,.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .stat-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(13,110,253,.10);
+      color: #0d6efd;
+      font-size: 18px;
+    }
+    .card { border-radius: 18px; border-color: rgba(0,0,0,.08); }
+    .card-header { border-bottom-color: rgba(0,0,0,.06); }
+    .table thead th { color: rgba(33,37,41,.62); font-weight: 700; letter-spacing: .2px; }
+    .table-sticky thead th { position: sticky; top: 0; z-index: 1; background: #fff; }
+    .table tbody tr:hover { background: rgba(13,110,253,.04); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .badge { border-radius: 999px; padding: .4rem .6rem; font-weight: 700; letter-spacing: .2px; }
+  </style>
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <span class="navbar-brand d-flex align-items-center gap-2">
+        <span style="font-size: 18px;">🛡️</span>
+        <span>License Monitor</span>
+      </span>
+      <div class="ms-auto">
+        <a class="btn btn-sm btn-outline-light" href="/admin/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <div class="hero mb-4 shadow-sm">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+          <div class="text-muted small">Admin Panel</div>
+          <div class="h3 mb-1">Dashboard Monitoring</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card stat-card shadow-sm">
+          <div class="card-body d-flex align-items-center gap-3">
+            <div class="stat-icon">🔑</div>
+            <div>
+              <div class="text-muted small">Total License</div>
+              <div class="h4 mb-0">{{ stats.total_licenses }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stat-card shadow-sm">
+          <div class="card-body d-flex align-items-center gap-3">
+            <div class="stat-icon" style="background: rgba(25,135,84,.10); color:#198754;">💻</div>
+            <div>
+              <div class="text-muted small">Total Device</div>
+              <div class="h4 mb-0">{{ stats.total_devices }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stat-card shadow-sm">
+          <div class="card-body d-flex align-items-center gap-3">
+            <div class="stat-icon" style="background: rgba(255,193,7,.15); color:#b78103;">📆</div>
+            <div>
+              <div class="text-muted small">Aktif 7 Hari</div>
+              <div class="h4 mb-0">{{ stats.active_7d }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card stat-card shadow-sm">
+          <div class="card-body d-flex align-items-center gap-3">
+            <div class="stat-icon" style="background: rgba(220,53,69,.10); color:#dc3545;">⏱️</div>
+            <div>
+              <div class="text-muted small">Aktif 24 Jam</div>
+              <div class="h4 mb-0">{{ stats.active_24h }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-white">Breakdown Tier</div>
+          <div class="card-body">
+            <table class="table table-sm mb-0">
+              <thead><tr><th>Tier</th><th class="text-end">License</th><th class="text-end">Device</th></tr></thead>
+              <tbody>
+                {% for row in tiers %}
+                  <tr>
+                    <td>
+                      {% set t = (row.tier or '')|lower %}
+                      {% if t == 'trial' %}
+                        <span class="badge text-bg-warning">trial</span>
+                      {% elif t == 'standard' %}
+                        <span class="badge text-bg-secondary">standard</span>
+                      {% elif t == 'pro' %}
+                        <span class="badge text-bg-primary">pro</span>
+                      {% elif t == 'unlimited' %}
+                        <span class="badge text-bg-success">unlimited</span>
+                      {% else %}
+                        <span class="badge text-bg-light">{{ row.tier }}</span>
+                      {% endif %}
+                    </td>
+                    <td class="text-end">{{ row.license_count }}</td>
+                    <td class="text-end">{{ row.device_count }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-white d-flex align-items-center justify-content-between">
+            <span>Aktivitas Terbaru</span>
+            <span class="text-muted small">Max 50</span>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover align-middle table-sticky">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>License</th>
+                    <th>Tier</th>
+                    <th>Device</th>
+                    <th>IP</th>
+                    <th>Versi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for a in recent %}
+                    <tr>
+                      <td class="text-muted">{{ a.last_seen or a.activated_at }}</td>
+                      <td class="mono small">{{ a.license_key }}</td>
+                      <td>
+                        {% set t = (a.tier or '')|lower %}
+                        {% if t == 'trial' %}
+                          <span class="badge text-bg-warning">trial</span>
+                        {% elif t == 'standard' %}
+                          <span class="badge text-bg-secondary">standard</span>
+                        {% elif t == 'pro' %}
+                          <span class="badge text-bg-primary">pro</span>
+                        {% elif t == 'unlimited' %}
+                          <span class="badge text-bg-success">unlimited</span>
+                        {% else %}
+                          <span class="badge text-bg-light">{{ a.tier }}</span>
+                        {% endif %}
+                      </td>
+                      <td class="mono small">{{ a.device_fingerprint[:18] }}...</td>
+                      <td class="text-muted">{{ a.last_ip or '-' }}</td>
+                      <td class="text-muted">{{ a.last_app_version or '-' }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

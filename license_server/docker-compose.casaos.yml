@@ -1,0 +1,20 @@
+services:
+  license-server:
+    image: kasir-license-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.license
+    container_name: kasir-license-server
+    ports:
+      - "8088:8088"
+    environment:
+      - LICENSE_DB=/data/license_server.sqlite
+      - LICENSE_SIGNING_KEY_B64=${LICENSE_SIGNING_KEY_B64}
+      - TOKEN_TTL_DAYS=${TOKEN_TTL_DAYS:-7}
+      - ADMIN_USER=${ADMIN_USER}
+      - ADMIN_PASS=${ADMIN_PASS}
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
+      - PORT=8088
+    volumes:
+      - ./data:/data
+    restart: unless-stopped

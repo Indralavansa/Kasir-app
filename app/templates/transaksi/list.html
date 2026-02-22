@@ -1,0 +1,123 @@
+﻿{% extends 'base.html' %}
+
+{% block page_title %}Riwayat Transaksi{% endblock %}
+
+{% block content %}
+<!-- Filter Section -->
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('list_transaksi') }}">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Kode Transaksi</label>
+                    <input type="text" name="kode" class="form-control" placeholder="Cari kode..." value="{{ kode }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Dari Tanggal</label>
+                    <input type="date" name="tanggal_mulai" class="form-control" value="{{ tanggal_mulai }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Sampai Tanggal</label>
+                    <input type="date" name="tanggal_selesai" class="form-control" value="{{ tanggal_selesai }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Metode Pembayaran</label>
+                    <select name="payment_method" class="form-select">
+                        <option value="">Semua</option>
+                        <option value="tunai" {% if payment_method == 'tunai' %}selected{% endif %}>Tunai</option>
+                        <option value="qris" {% if payment_method == 'qris' %}selected{% endif %}>QRIS</option>
+                        <option value="ewallet" {% if payment_method == 'ewallet' %}selected{% endif %}>E-Wallet</option>
+                        <option value="debit" {% if payment_method == 'debit' %}selected{% endif %}>Debit</option>
+                        <option value="hutang" {% if payment_method == 'hutang' %}selected{% endif %}>Hutang</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-2"></i>Filter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if transaksi_list %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
+                        <th>Bayar</th>
+                        <th>Kembalian</th>
+                        <th>Metode</th>
+                        <th>Kasir</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaksi in transaksi_list %}
+                    <tr>
+                        <td><strong>{{ transaksi.kode_transaksi }}</strong></td>
+                        <td>{{ transaksi.tanggal.strftime('%d-%m-%Y %H:%M') }}</td>
+                        <td>Rp {{ "{:,.0f}".format(transaksi.total) }}</td>
+                        <td>Rp {{ "{:,.0f}".format(transaksi.bayar) }}</td>
+                        <td>Rp {{ "{:,.0f}".format(transaksi.kembalian) }}</td>
+                        <td>
+                            {% if transaksi.payment_method == 'tunai' %}
+                            <span class="badge bg-success"><i class="fas fa-money-bill"></i> Tunai</span>
+                            {% elif transaksi.payment_method == 'qris' %}
+                            <span class="badge bg-primary"><i class="fas fa-qrcode"></i> QRIS</span>
+                            {% elif transaksi.payment_method == 'ewallet' %}
+                            <span class="badge bg-info"><i class="fas fa-wallet"></i> E-Wallet</span>
+                            {% elif transaksi.payment_method == 'debit' %}
+                            <span class="badge bg-warning"><i class="fas fa-credit-card"></i> Debit</span>
+                            {% elif transaksi.payment_method == 'hutang' %}
+                            <span class="badge bg-danger"><i class="fas fa-handshake"></i> Hutang</span>
+                            {% else %}
+                            <span class="badge bg-secondary">{{ transaksi.payment_method|upper }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ transaksi.user.nama }}</td>
+                        <td>
+                            <a href="{{ url_for('view_struk', id=transaksi.id) }}" class="btn btn-sm btn-primary" title="Lihat Struk">
+                                <i class="fas fa-receipt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if pagination and pagination.pages > 1 %}
+        <nav aria-label="Pagination Transaksi" class="mt-3">
+            <ul class="pagination justify-content-center mb-0">
+                <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('list_transaksi', page=pagination.prev_num, per_page=pagination.per_page, kode=kode, tanggal_mulai=tanggal_mulai, tanggal_selesai=tanggal_selesai, payment_method=payment_method) }}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Hal {{ pagination.page }} / {{ pagination.pages }} ({{ pagination.total }} data)</span>
+                </li>
+                <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('list_transaksi', page=pagination.next_num, per_page=pagination.per_page, kode=kode, tanggal_mulai=tanggal_mulai, tanggal_selesai=tanggal_selesai, payment_method=payment_method) }}">&raquo;</a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-receipt fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Belum ada transaksi</h5>
+            <p class="text-muted">Mulai transaksi pertama Anda di halaman Kasir</p>
+            <a href="{{ url_for('kasir') }}" class="btn btn-primary">
+                <i class="fas fa-cash-register me-2"></i>Ke Kasir
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

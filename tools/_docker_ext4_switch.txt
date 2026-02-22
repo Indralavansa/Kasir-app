@@ -1,0 +1,35 @@
+timestamp: 2026-02-20T00:49:51
+mount: /media/devmon/sda1-ata-HGST_HTS541075A9
+docker_root: /media/devmon/sda1-ata-HGST_HTS541075A9/docker
+containerd_root: /media/devmon/sda1-ata-HGST_HTS541075A9/containerd
+
+## df (exit=0)
+Filesystem                                                    Type           Size  Used Avail Use% Mounted on
+/var/lib/casaos/files:/media/devmon/sda1-ata-HGST_HTS541075A9 fuse.mergerfs  694G   13G  674G   2% /DATA
+/dev/sda1                                                     ext4           687G  8.4G  672G   2% /media/devmon/sda1-ata-HGST_HTS541075A9
+
+## stop_services (exit=0)
+stopped
+
+## prepare_dirs (exit=0)
+ready
+
+## fix_containerd_link (exit=0)
+lrwxrwxrwx 1 root root 50 Feb 20 01:49 /var/lib/containerd -> /media/devmon/sda1-ata-HGST_HTS541075A9/containerd
+
+## write_daemon_json (exit=0)
+{
+  "data-root": "/media/devmon/sda1-ata-HGST_HTS541075A9/docker"
+}
+
+## start_services (exit=0)
+/media/devmon/sda1-ata-HGST_HTS541075A9/docker
+
+## docker_system_df (exit=0)
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         0         8.847GB   193.9MB (2%)
+Containers      0         0         0B        0B
+Local Volumes   1         0         0B        0B
+Build Cache     13        0         239.6MB   239.6MB
+
+result: ok
